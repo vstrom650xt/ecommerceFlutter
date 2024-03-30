@@ -1,6 +1,22 @@
 {
     "language" :"English",
-    "hello" : "hello"
+    "home": "Home",
+    "account" : "Account",
+    "cart" : "Cart",
+    "lets" : "Let’s ",
+    "signing" : "Sign In",
+    "enterEmail": "Enter your email",
+    "enterPassword": "Enter your password",
+    "repeatPassword": "Repeat your password",
+    "forgotPassword": "Forgot Password?",
+    "createAccount": "Create your account",
+    "enter": "Enter",
+    "putAddress": "Put your address",
+    "putName": "Put your name"
+
+
+
+
 
 
 }

@@ -1,5 +1,6 @@
 import 'dart:js';
 
+import 'package:ecommerce/responsive/dimension.dart';
 import 'package:flutter/material.dart';
 
 class ResponsiveLayout extends StatelessWidget {
@@ -14,7 +15,7 @@ class ResponsiveLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return  LayoutBuilder(
         builder: (context,constraints){
-          if(constraints.maxWidth <600){
+          if(constraints.maxWidth < mobileWidth){
             return mobileBody;
           }else{
             return desktopBody;

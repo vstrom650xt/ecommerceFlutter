@@ -1,6 +1,21 @@
 {
     "language" :"Español",
-    "hello" : "hola"
+    "home": "Inicio",
+    "account" : "Cuenta",
+    "cart" : "Carrito",
+    "lets" : "Vámos a ",
+    "signing" : "Iniciar sesión",
+    "enterEmail": "Pon tu email",
+    "enterPassword": "Pon tu contraseña",
+    "repeatPassword": "Repita su contraseña",
+    "forgotPassword": "¿Has olvidado tu contraseña?",
+    "createAccount": "Crea tu cuenta",
+    "enter": "Entrar",
+    "putAddress": "Ponga su dirección",
+    "putName": "Ponga su nombre completo"
+
+
+
 
 
 }

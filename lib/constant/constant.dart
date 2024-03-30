@@ -14,3 +14,4 @@ class AppColors{
   static const Color darkAccentColor = Colors.indigoAccent; // Cambia por tu color de acento oscuro
 
 }
+
