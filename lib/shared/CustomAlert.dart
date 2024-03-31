@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 
-class Alert {
+class CustomAlert {
   bool showalert = true;
 
   Widget customAlert(BuildContext context, Function(bool) setStateCallback) {

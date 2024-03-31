@@ -3,7 +3,7 @@ import 'package:getwidget/getwidget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TabWidget extends StatefulWidget {
-  const TabWidget({Key? key}) : super(key: key);
+  const TabWidget({super.key});
 
   @override
   _TabWidgetState createState() => _TabWidgetState();
@@ -33,7 +33,7 @@ class _TabWidgetState extends State<TabWidget> with SingleTickerProviderStateMix
         Container(color: Colors.white),
       ]),
       bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20.0),
           topRight: Radius.circular(20.0),
         ),
@@ -51,7 +51,7 @@ class _TabWidgetState extends State<TabWidget> with SingleTickerProviderStateMix
           child: GFTabBar(
             length: 3,
             controller: tabController,
-            labelStyle: TextStyle(
+            labelStyle: const TextStyle(
               fontSize: 14.0,
               fontWeight: FontWeight.bold,
               backgroundColor: Colors.yellow, // Cambia el color de fondo del bottomNavigationBar

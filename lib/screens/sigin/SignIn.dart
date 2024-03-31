@@ -11,6 +11,14 @@ class SignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
+    final TextEditingController _nameController = TextEditingController();
+    final TextEditingController _emailController = TextEditingController();
+    final TextEditingController _addressController = TextEditingController();
+    final TextEditingController _passwordController = TextEditingController();
+    final TextEditingController _repeatPasswordController = TextEditingController();
+
+     var list = [_nameController, _emailController , _addressController,_passwordController,_repeatPasswordController];
+
 
     final SignInWidgets signInWidgets = SignInWidgets();
 
@@ -26,47 +34,57 @@ class SignIn extends StatelessWidget {
             ResponsiveWidget.isSmallScreen(context)
                 ? const SizedBox()
                 : Expanded(
-              child: Container(
-                color: Colors.blue,
-                  child:signInWidgets.buildCircleImage(context)
-              ),
+                    child: Container(
+                        color: Colors.blue,
+                        child: signInWidgets.buildCircleImage(context)),
                   ),
             Expanded(
               flex: 2,
               child: Container(
                 height: height,
                 color: AppColors.backColor,
-                child: SingleChildScrollView(
+                child: Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: height * 0.025),
                       signInWidgets.buildTitle(context),
                       SizedBox(height: height * 0.02),
-                      signInWidgets.buildField(context,
-                          AppLocalizations.of(context)!.putName, Icons.abc,false),
+                      signInWidgets.buildField(
+                          context,
+                          AppLocalizations.of(context)!.putName,
+                          Icons.abc,
+                          false,
+                          _nameController),
                       signInWidgets.buildField(
                           context,
                           AppLocalizations.of(context)!.enterEmail,
                           Icons.email,
-                          false),
+                          false,
+                          _emailController),
                       signInWidgets.buildField(
                           context,
                           AppLocalizations.of(context)!.putAddress,
-                          Icons.house,false),
+                          Icons.house,
+                          false,
+                          _addressController),
                       signInWidgets.buildField(
                           context,
                           AppLocalizations.of(context)!.enterPassword,
-                          Icons.password,false),
+                          Icons.password,
+                          false,
+                          _passwordController),
                       signInWidgets.buildField(
                           context,
                           AppLocalizations.of(context)!.repeatPassword,
-                          Icons.repeat,false),
+                          Icons.repeat,
+                          false,
+                          _repeatPasswordController),
                       signInWidgets.buildForgotPasswordButton(context),
                       SizedBox(height: height * 0.05),
-                      signInWidgets.buildSignInButton(context),
+                      signInWidgets.buildSignInButton(context,list),
                     ],
                   ),
                 ),
