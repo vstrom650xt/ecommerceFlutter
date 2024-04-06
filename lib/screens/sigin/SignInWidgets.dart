@@ -9,21 +9,17 @@ import '../../constant/AppColors.dart';
 
 class SignInWidgets {
   Widget buildTitle(BuildContext context) {
-    return Align(
-      alignment: Alignment.topLeft,
-      child: Text(
-        AppLocalizations.of(context)!.createAccount,
-        style: const TextStyle(
-          fontSize: 28,
-          fontFamily: 'Sans Serif',
-        ),
+    return Text(
+      AppLocalizations.of(context)!.createAccount,
+      style: const TextStyle(
+        fontSize: 28,
+        fontFamily: 'Sans Serif',
       ),
     );
   }
 
   Widget buildField(BuildContext context, String text, IconData iconData,
       bool obscureText, TextEditingController controller) {
-    final double width = MediaQuery.of(context).size.width;
 
     return TextFormField(
       controller: controller,
@@ -34,7 +30,6 @@ class SignInWidgets {
           iconData,
           color: AppColors.PERSIMON,
         ),
-        contentPadding: const EdgeInsets.only(top: 12.0),
         hintText: text,
       ),
       onChanged: (value) {},
@@ -42,14 +37,11 @@ class SignInWidgets {
   }
 
   Widget buildForgotPasswordButton(BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: TextButton(
-        onPressed: () {},
-        child: Text(
-          AppLocalizations.of(context)!.forgotPassword,
-          style: TextStyle(color: AppColors.PERSIMON),
-        ),
+    return TextButton(
+      onPressed: () {},
+      child: Text(
+        AppLocalizations.of(context)!.forgotPassword,
+        style: const TextStyle(color: AppColors.PERSIMON),
       ),
     );
   }
@@ -62,7 +54,7 @@ class SignInWidgets {
       child: InkWell(
         onTap: () async {
           bool areValuesValid =
-              controllerSignIn.validateValues(listTextEditingController);
+          controllerSignIn.validateValues(listTextEditingController);
           if (!areValuesValid) {
             showDialog(
               context: context,
@@ -76,7 +68,7 @@ class SignInWidgets {
           } else {
             ApiUser apiUser = ApiUser();
             bool saved =
-                await apiUser.saveUser(listTextEditingController, context);
+            await apiUser.saveUser(listTextEditingController, context);
 
             if (saved) {
               showDialog(
@@ -101,6 +93,7 @@ class SignInWidgets {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               color: AppColors.MIDNIGHTGREEN,
+
               border: Border.all(color: Colors.transparent)),
           child: Text(
             AppLocalizations.of(context)!.enter,

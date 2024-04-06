@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ecommerce/constant/AppColors.dart';
@@ -17,7 +18,7 @@ class SignIn extends StatelessWidget {
     final TextEditingController _addressController = TextEditingController();
     final TextEditingController _passwordController = TextEditingController();
     final TextEditingController _repeatPasswordController =
-    TextEditingController();
+        TextEditingController();
 
     var list = [
       _nameController,
@@ -32,7 +33,6 @@ class SignIn extends StatelessWidget {
     return Scaffold(
       body: ResponsiveWidget(
         largeScreen: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Container(
@@ -50,25 +50,21 @@ class SignIn extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  Container(
-                    color: Colors.transparent, // Hacer el contenedor transparente para que la imagen de fondo sea visible
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                    child: _buildSignInForm(
-                      context,
-                      height,
-                      list,
-                      signInWidgets,
-                      _repeatPasswordController,
-                    ),
+                  _buildSignInForm(
+                    context,
+                    height,
+                    list,
+                    signInWidgets,
+                    _repeatPasswordController,
                   ),
                 ],
               ),
             ),
-
           ],
         ),
-        mediumScreen: _buildSignInForm(context, height, list, signInWidgets,
-            _repeatPasswordController), // Pasar _repeatPasswordController como argumento
+        mediumScreen: _buildSignInForm(
+            context, height, list, signInWidgets, _repeatPasswordController),
+        // Pasar _repeatPasswordController como argumento
         smallScreen: _buildSignInForm(context, height, list, signInWidgets,
             _repeatPasswordController), // Pasar _repeatPasswordController como argumento
       ),
@@ -81,58 +77,82 @@ class SignIn extends StatelessWidget {
       List<TextEditingController> list,
       SignInWidgets signInWidgets,
       TextEditingController repeatPasswordController) {
-    return SizedBox(
-      height: height,
-      child: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center, // Centrar verticalmente
-            crossAxisAlignment: CrossAxisAlignment.center, // Centrar horizontalmente
-            children: [
-              // signInWidgets.buildTitle(context),
-              SizedBox(height: height * 0.20),
-              signInWidgets.buildField(
-                  context,
-                  AppLocalizations.of(context)!.putName,
-                  Icons.abc,
-                  false,
-                  list[0]),
-              SizedBox(height: height * 0.02),
-              signInWidgets.buildField(
-                  context,
-                  AppLocalizations.of(context)!.enterEmail,
-                  Icons.email,
-                  false,
-                  list[1]), // Usar el segundo controlador de la lista
-              SizedBox(height: height * 0.02),
-              signInWidgets.buildField(
-                  context,
-                  AppLocalizations.of(context)!.putAddress,
-                  Icons.house,
-                  false,
-                  list[2]), // Usar el tercer controlador de la lista
-              SizedBox(height: height * 0.02),
-              signInWidgets.buildField(
-                  context,
-                  AppLocalizations.of(context)!.enterPassword,
-                  Icons.password,
-                  false,
-                  list[3]), // Usar el cuarto controlador de la lista
-              SizedBox(height: height * 0.02),
-              signInWidgets.buildField(
-                  context,
-                  AppLocalizations.of(context)!.repeatPassword,
-                  Icons.repeat,
-                  false,
-                  repeatPasswordController), // Usar _repeatPasswordController
-              SizedBox(height: height * 0.04),
-              signInWidgets.buildForgotPasswordButton(context),
-              SizedBox(height: height * 0.04),
-              signInWidgets.buildSignInButton(context, list),
-            ],
-          ),
+    return Column(
+      children: [
+        SizedBox(height: height * 0.25),
+        signInWidgets.buildTitle(context),
+        SizedBox(height: height * 0.015),
+        Column(
+          children: [
+            Center(
+              child: SizedBox(
+                width: 650,
+                child: signInWidgets.buildField(
+                    context,
+                    AppLocalizations.of(context)!.putName,
+                    Icons.abc,
+                    false,
+                    list[0]),
+              ),
+            ),
+            SizedBox(height: height * 0.015),
+
+            Center(
+              child: SizedBox(
+                width: 650,
+                child: signInWidgets.buildField(
+                    context,
+                    AppLocalizations.of(context)!.enterEmail,
+                    Icons.email,
+                    false,
+                    list[1]),
+              ),
+            ),
+            SizedBox(height: height * 0.015),
+
+            Center(
+              child: SizedBox(
+                width: 650,
+                child: signInWidgets.buildField(
+                    context,
+                    AppLocalizations.of(context)!.putAddress,
+                    Icons.house,
+                    false,
+                    list[2]),
+              ),
+            ),
+            SizedBox(height: height * 0.015),
+
+            Center(
+              child: SizedBox(
+                width: 650,
+                child: signInWidgets.buildField(
+                    context,
+                    AppLocalizations.of(context)!.enterPassword,
+                    Icons.password,
+                    false,
+                    list[3]),
+              ),
+            ),
+            SizedBox(height: height * 0.015),
+            Center(
+              child: SizedBox(
+                width: 650,
+                child: signInWidgets.buildField(
+                    context,
+                    AppLocalizations.of(context)!.putName,
+                    Icons.abc,
+                    false,
+                    list[0]),
+              ),
+            ),
+            SizedBox(height: height * 0.04),
+            signInWidgets.buildForgotPasswordButton(context),
+            SizedBox(height: height * 0.04),
+            signInWidgets.buildSignInButton(context, list),
+          ],
         ),
-      ),
+      ],
     );
   }
 }
