@@ -50,7 +50,13 @@ class SignInWidgets {
       List<TextEditingController> listTextEditingController) {
     ControllerSignIn controllerSignIn = ControllerSignIn();
 
-    return Material(
+    return Container(
+      width: 200.0,
+      height: 50.0,
+      decoration: BoxDecoration(
+        color: AppColors.MIDNIGHTGREEN,
+        borderRadius: BorderRadius.circular(12.0),
+      ),
       child: InkWell(
         onTap: () async {
           bool areValuesValid =
@@ -87,17 +93,13 @@ class SignInWidgets {
             }
           }
         },
-        borderRadius: BorderRadius.circular(16.0),
-        child: Ink(
-          padding: const EdgeInsets.symmetric(horizontal: 70.0, vertical: 18.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16.0),
-              color: AppColors.MIDNIGHTGREEN,
-
-              border: Border.all(color: Colors.transparent)),
+        child: const Center(
           child: Text(
-            AppLocalizations.of(context)!.enter,
-            style: TextStyle(color: AppColors.WHITE),
+            'Iniciar sesión', // Texto del botón
+            style: TextStyle(
+              color: Colors.white, // Color del texto
+              fontSize: 16.0, // Tamaño del texto
+            ),
           ),
         ),
       ),
