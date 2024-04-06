@@ -1,10 +1,14 @@
-import 'package:ecommerce/shared/CustomAlert.dart';
-import 'package:flutter/cupertino.dart';
 
-class ControllerSignIn{
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import '../../apicalls/ApiUser.dart';
+import '../../shared/CustomDialog.dart';
+
+class ControllerSignIn {
+
 
   bool arePasswordsEqual(String password, String repeatPassword) {
-
     if (password.isNotEmpty && repeatPassword.isNotEmpty) {
       return password == repeatPassword;
     }
@@ -13,11 +17,11 @@ class ControllerSignIn{
 
 
   bool isValidEmail(String email) {
-
     const emailRegex =
         r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
     return RegExp(emailRegex).hasMatch(email);
   }
+
   /*
   * La contraseña debe tener al menos 8 caracteres
   * Al menos una letra mayúscula
@@ -27,11 +31,47 @@ class ControllerSignIn{
   *
   * */
 
+  Future<void> sigIn(BuildContext context,
+      List<TextEditingController> listTextEditingController) async {
+    bool areValuesValid = validateValues(listTextEditingController);
+    if (!areValuesValid) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const dialogo(
+            textoSuperior: " Rellene todos los campos",
+            textInferior: "",
+          );
+        },
+      );
+    } else {
+      ApiUser apiUser = ApiUser();
+      bool saved =
+      await apiUser.saveUser(listTextEditingController, context);
+
+      if (saved) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const dialogo(
+              textoSuperior: "",
+              textInferior: "dentro",
+            );
+          },
+        );
+      } else {
+        for (var controller in listTextEditingController) {
+          controller.clear();
+        }
+      }
+    }
+  }
 
   bool isStrongPassword(String password) {
     const passwordRegex = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
     if (!RegExp(passwordRegex).hasMatch(password)) {
-      print('La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un dígito y un carácter especial.');
+      print(
+          'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un dígito y un carácter especial.');
       return false;
     }
     return true;
@@ -45,4 +85,5 @@ class ControllerSignIn{
     }
     return true;
   }
+
 }

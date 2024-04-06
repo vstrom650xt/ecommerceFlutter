@@ -14,6 +14,7 @@ class SignInWidgets {
       style: const TextStyle(
         fontSize: 28,
         fontFamily: 'Sans Serif',
+        color: AppColors.MIDNIGHTGREEN
       ),
     );
   }
@@ -59,39 +60,7 @@ class SignInWidgets {
       ),
       child: InkWell(
         onTap: () async {
-          bool areValuesValid =
-          controllerSignIn.validateValues(listTextEditingController);
-          if (!areValuesValid) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return const dialogo(
-                  textoSuperior: " Rellene todos los campos",
-                  textInferior: "",
-                );
-              },
-            );
-          } else {
-            ApiUser apiUser = ApiUser();
-            bool saved =
-            await apiUser.saveUser(listTextEditingController, context);
-
-            if (saved) {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return const dialogo(
-                    textoSuperior: "",
-                    textInferior: "dentro",
-                  );
-                },
-              );
-            } else {
-              for (var controller in listTextEditingController) {
-                controller.clear();
-              }
-            }
-          }
+       controllerSignIn.sigIn(context, listTextEditingController);
         },
         child: const Center(
           child: Text(

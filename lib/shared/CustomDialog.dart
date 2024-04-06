@@ -6,23 +6,25 @@ class dialogo extends StatelessWidget {
   final String textInferior;
 
   const dialogo(
-      {Key? key, required this.textoSuperior, required this.textInferior})
-      : super(key: key);
+      {super.key, required this.textoSuperior, required this.textInferior});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(textoSuperior),
+      title: Text(textoSuperior,
+      style: const TextStyle(
+        color: AppColors.MIDNIGHTGREEN
+      ),),
       content: Text(textInferior),
-      backgroundColor: AppColors.ALABASTER,
+      backgroundColor: AppColors.WHITE,
       actions: [
         TextButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text(
+          child: const Text(
             'Cerrar',
-            style: TextStyle(color: AppColors.PERSIMON),
+            style: TextStyle(color: AppColors.MIDNIGHTGREEN),
           ),
         ),
       ],

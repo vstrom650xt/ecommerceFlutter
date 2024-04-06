@@ -1,13 +1,11 @@
 import 'dart:convert' show json;
 import 'package:ecommerce/screens/sigin/ControllerSignIn.dart';
-import 'package:ecommerce/shared/CustomAlert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import '../constant/baseurls.dart';
 import 'package:ecommerce/utils/EncryptPassword.dart';
-
 import '../shared/CustomDialog.dart';
 
 class ApiUser  {
@@ -24,13 +22,7 @@ class ApiUser  {
     String formattedDate =
     DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ').format(creationDate);
     String encryptedPassword = EncryptPassword.hashPassword(password);
-    bool savedSuccessfully = false; // Valor inicial
-
-    // if (name.isEmpty || email.isEmpty || address.isEmpty || password.isEmpty) {
-    //   print('Todos los campos son obligatorios.');
-    //   CustomAlert();
-    //   return savedSuccessfully;
-    // }
+    bool savedSuccessfully = false;
 
     if (!controllerSignIn.arePasswordsEqual(password, repeatPassword)) {
       showDialog(

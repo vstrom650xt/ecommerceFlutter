@@ -86,7 +86,7 @@ class SignIn extends StatelessWidget {
           children: [
             Center(
               child: SizedBox(
-                width: 650,
+                width: 250,
                 child: signInWidgets.buildField(
                     context,
                     AppLocalizations.of(context)!.putName,
@@ -99,7 +99,7 @@ class SignIn extends StatelessWidget {
 
             Center(
               child: SizedBox(
-                width: 650,
+                width: 250,
                 child: signInWidgets.buildField(
                     context,
                     AppLocalizations.of(context)!.enterEmail,
@@ -112,7 +112,7 @@ class SignIn extends StatelessWidget {
 
             Center(
               child: SizedBox(
-                width: 650,
+                width: 250,
                 child: signInWidgets.buildField(
                     context,
                     AppLocalizations.of(context)!.putAddress,
@@ -125,7 +125,7 @@ class SignIn extends StatelessWidget {
 
             Center(
               child: SizedBox(
-                width: 650,
+                width: 250,
                 child: signInWidgets.buildField(
                     context,
                     AppLocalizations.of(context)!.enterPassword,
@@ -137,13 +137,13 @@ class SignIn extends StatelessWidget {
             SizedBox(height: height * 0.015),
             Center(
               child: SizedBox(
-                width: 650,
+                width: 250,
                 child: signInWidgets.buildField(
                     context,
-                    AppLocalizations.of(context)!.putName,
-                    Icons.abc,
+                    AppLocalizations.of(context)!.repeatPassword,
+                    Icons.repeat,
                     false,
-                    list[0]),
+                    list[4]),
               ),
             ),
             SizedBox(height: height * 0.04),
