@@ -1,13 +1,17 @@
 import 'dart:convert' show json;
 import 'package:ecommerce/screens/sigin/ControllerSignIn.dart';
+import 'package:ecommerce/shared/CustomAlert.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import '../constant/baseurls.dart';
 import 'package:ecommerce/utils/EncryptPassword.dart';
 
-class ApiUser {
-  Future<bool> saveUser(List<TextEditingController> values) async {
+import '../shared/CustomDialog.dart';
+
+class ApiUser  {
+  Future<bool> saveUser(List<TextEditingController> values, BuildContext context) async {
     ControllerSignIn controllerSignIn = ControllerSignIn();
     final url = Uri.parse(BaseUrls.BASEURLAPI + 'users/save/');
     String name = values[0].text;
@@ -22,22 +26,48 @@ class ApiUser {
     String encryptedPassword = EncryptPassword.hashPassword(password);
     bool savedSuccessfully = false; // Valor inicial
 
-    if (name.isEmpty || email.isEmpty || address.isEmpty || password.isEmpty) {
-      print('Todos los campos son obligatorios.');
-      return savedSuccessfully;
-    }
+    // if (name.isEmpty || email.isEmpty || address.isEmpty || password.isEmpty) {
+    //   print('Todos los campos son obligatorios.');
+    //   CustomAlert();
+    //   return savedSuccessfully;
+    // }
 
     if (!controllerSignIn.arePasswordsEqual(password, repeatPassword)) {
-      print('Las contraseñas no coinciden.');
-      return savedSuccessfully;
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const dialogo(
+            textoSuperior: " ",
+            textInferior: "contraseñas no iguales",
+          );
+        },
+      );      return savedSuccessfully;
     }
 
     if (!controllerSignIn.isStrongPassword(password)) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const dialogo(
+            textoSuperior: " ",
+            textInferior: "contraseña debil ",
+          );
+        },
+      );
       print('La contraseña no es lo suficientemente fuerte.');
       return savedSuccessfully;
     }
 
     if (!controllerSignIn.isValidEmail(email)) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const dialogo(
+            textoSuperior: " ",
+            textInferior: "formato del correo electrónico no es válido",
+          );
+        },
+      );
       print('El formato del correo electrónico no es válido.');
       return savedSuccessfully;
     }

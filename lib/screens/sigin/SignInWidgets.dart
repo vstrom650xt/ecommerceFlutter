@@ -1,6 +1,7 @@
 import 'package:ecommerce/apicalls/ApiUser.dart';
 import 'package:ecommerce/constant/baseurls.dart';
-import 'package:ecommerce/shared/CustomAlert.dart';
+import 'package:ecommerce/screens/sigin/ControllerSignIn.dart';
+import 'package:ecommerce/shared/CustomDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:getwidget/getwidget.dart';
@@ -8,7 +9,8 @@ import '../../constant/AppColors.dart';
 
 class SignInWidgets {
   Widget buildTitle(BuildContext context) {
-    return Center(
+    return Align(
+      alignment: Alignment.topLeft,
       child: Text(
         AppLocalizations.of(context)!.createAccount,
         style: const TextStyle(
@@ -23,31 +25,19 @@ class SignInWidgets {
       bool obscureText, TextEditingController controller) {
     final double width = MediaQuery.of(context).size.width;
 
-    return Center(
-      child: Container(
-        height: 55.0,
-        width: width,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.0),
-          color: AppColors.WHITE,
-          // border: Border.all(color: AppColors.PERSIMON)
+    return TextFormField(
+      controller: controller,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        prefixIcon: Icon(
+          iconData,
+          color: AppColors.PERSIMON,
         ),
-        child: TextFormField(
-          controller: controller,
-          obscureText: obscureText,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            prefixIcon: Icon(
-              iconData,
-              color: AppColors.PERSIMON,
-            ),
-            contentPadding: const EdgeInsets.only(top: 12.0),
-            hintText: text,
-
-          ),
-          onChanged: (value) {},
-        ),
+        contentPadding: const EdgeInsets.only(top: 12.0),
+        hintText: text,
       ),
+      onChanged: (value) {},
     );
   }
 
@@ -56,10 +46,9 @@ class SignInWidgets {
       alignment: Alignment.center,
       child: TextButton(
         onPressed: () {},
-        child: Text(AppLocalizations.of(context)!.forgotPassword,
-        style: TextStyle(
-          color: AppColors.PERSIMON
-        ),
+        child: Text(
+          AppLocalizations.of(context)!.forgotPassword,
+          style: TextStyle(color: AppColors.PERSIMON),
         ),
       ),
     );
@@ -67,34 +56,55 @@ class SignInWidgets {
 
   Widget buildSignInButton(BuildContext context,
       List<TextEditingController> listTextEditingController) {
-    CustomAlert customAlert = CustomAlert();
-    return Center(
-      child: Material(
-        child: InkWell(
-          onTap: () async {
+    ControllerSignIn controllerSignIn = ControllerSignIn();
+
+    return Material(
+      child: InkWell(
+        onTap: () async {
+          bool areValuesValid =
+              controllerSignIn.validateValues(listTextEditingController);
+          if (!areValuesValid) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return const dialogo(
+                  textoSuperior: " Rellene todos los campos",
+                  textInferior: "",
+                );
+              },
+            );
+          } else {
             ApiUser apiUser = ApiUser();
-            bool saved = await apiUser.saveUser(listTextEditingController);
+            bool saved =
+                await apiUser.saveUser(listTextEditingController, context);
+
             if (saved) {
-              // Los datos se guardaron con éxito, ahora puedes limpiar los controladores
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const dialogo(
+                    textoSuperior: "",
+                    textInferior: "dentro",
+                  );
+                },
+              );
+            } else {
               for (var controller in listTextEditingController) {
                 controller.clear();
               }
-            } else {
-              // Hubo un error al guardar los datos, puedes mostrar un mensaje de error si lo deseas
             }
-          },
-          borderRadius: BorderRadius.circular(16.0),
-          child: Ink(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 70.0, vertical: 18.0),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.0),
-                color: AppColors.MIDNIGHTGREEN,
-                border: Border.all()),
-            child: Text(
-              AppLocalizations.of(context)!.enter,
-              style: TextStyle(color: AppColors.WHITE),
-            ),
+          }
+        },
+        borderRadius: BorderRadius.circular(16.0),
+        child: Ink(
+          padding: const EdgeInsets.symmetric(horizontal: 70.0, vertical: 18.0),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16.0),
+              color: AppColors.MIDNIGHTGREEN,
+              border: Border.all(color: Colors.transparent)),
+          child: Text(
+            AppLocalizations.of(context)!.enter,
+            style: TextStyle(color: AppColors.WHITE),
           ),
         ),
       ),

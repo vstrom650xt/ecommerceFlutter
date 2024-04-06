@@ -3,16 +3,15 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ecommerce/constant/AppColors.dart';
 import 'package:ecommerce/responsive/ResponsiveWidget.dart';
 import 'package:ecommerce/screens/sigin/SignInWidgets.dart';
+import '../../constant/baseurls.dart';
+import '../../shared/TabWidget.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    final double height = MediaQuery.of(context).size.height;
     final TextEditingController _nameController = TextEditingController();
     final TextEditingController _emailController = TextEditingController();
     final TextEditingController _addressController = TextEditingController();
@@ -31,7 +30,6 @@ class SignIn extends StatelessWidget {
     final SignInWidgets signInWidgets = SignInWidgets();
 
     return Scaffold(
-      backgroundColor: Colors.white,
       body: ResponsiveWidget(
         largeScreen: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,81 +42,94 @@ class SignIn extends StatelessWidget {
             ),
             Expanded(
               flex: 2,
-              child: Container(
-                color: AppColors.WHITE,
-                padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                child: _buildSignInForm(context, height, list, signInWidgets),
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image.network(
+                      '${BaseUrls.IMGURLS}corporativa/cascos.jpg',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Container(
+                    color: Colors.transparent, // Hacer el contenedor transparente para que la imagen de fondo sea visible
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                    child: _buildSignInForm(
+                      context,
+                      height,
+                      list,
+                      signInWidgets,
+                      _repeatPasswordController,
+                    ),
+                  ),
+                ],
               ),
             ),
+
           ],
         ),
-        mediumScreen: _buildSignInForm(context, height, list, signInWidgets),
-        smallScreen: _buildSignInForm(context, height, list, signInWidgets),
+        mediumScreen: _buildSignInForm(context, height, list, signInWidgets,
+            _repeatPasswordController), // Pasar _repeatPasswordController como argumento
+        smallScreen: _buildSignInForm(context, height, list, signInWidgets,
+            _repeatPasswordController), // Pasar _repeatPasswordController como argumento
       ),
     );
   }
 
-  Widget _buildSignInForm(BuildContext context, double height,
-      List<TextEditingController> list, SignInWidgets signInWidgets) {
-    final TextEditingController _nameController = TextEditingController();
-    final TextEditingController _emailController = TextEditingController();
-    final TextEditingController _addressController = TextEditingController();
-    final TextEditingController _passwordController = TextEditingController();
-    final TextEditingController _repeatPasswordController =
-    TextEditingController();
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(right: 10, left: 10),
-        child: SizedBox(
-          height: height,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: height * 0.05),
-                signInWidgets.buildTitle(context),
-                SizedBox(height: height * 0.04),
-                signInWidgets.buildField(
-                    context,
-                    AppLocalizations.of(context)!.putName,
-                    Icons.abc,
-                    false,
-                    _nameController),
-                SizedBox(height: height * 0.02),
-                signInWidgets.buildField(
-                    context,
-                    AppLocalizations.of(context)!.enterEmail,
-                    Icons.email,
-                    false,
-                    _emailController),
-                SizedBox(height: height * 0.02),
-                signInWidgets.buildField(
-                    context,
-                    AppLocalizations.of(context)!.putAddress,
-                    Icons.house,
-                    false,
-                    _addressController),
-                SizedBox(height: height * 0.02),
-                signInWidgets.buildField(
-                    context,
-                    AppLocalizations.of(context)!.enterPassword,
-                    Icons.password,
-                    false,
-                    _passwordController),
-                SizedBox(height: height * 0.02),
-                signInWidgets.buildField(
-                    context,
-                    AppLocalizations.of(context)!.repeatPassword,
-                    Icons.repeat,
-                    false,
-                    _repeatPasswordController),
-                SizedBox(height: height * 0.04),
-                signInWidgets.buildForgotPasswordButton(context),
-                SizedBox(height: height * 0.04),
-                signInWidgets.buildSignInButton(context, list),
-              ],
-            ),
+  Widget _buildSignInForm(
+      BuildContext context,
+      double height,
+      List<TextEditingController> list,
+      SignInWidgets signInWidgets,
+      TextEditingController repeatPasswordController) {
+    return SizedBox(
+      height: height,
+      child: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center, // Centrar verticalmente
+            crossAxisAlignment: CrossAxisAlignment.center, // Centrar horizontalmente
+            children: [
+              // signInWidgets.buildTitle(context),
+              SizedBox(height: height * 0.20),
+              signInWidgets.buildField(
+                  context,
+                  AppLocalizations.of(context)!.putName,
+                  Icons.abc,
+                  false,
+                  list[0]),
+              SizedBox(height: height * 0.02),
+              signInWidgets.buildField(
+                  context,
+                  AppLocalizations.of(context)!.enterEmail,
+                  Icons.email,
+                  false,
+                  list[1]), // Usar el segundo controlador de la lista
+              SizedBox(height: height * 0.02),
+              signInWidgets.buildField(
+                  context,
+                  AppLocalizations.of(context)!.putAddress,
+                  Icons.house,
+                  false,
+                  list[2]), // Usar el tercer controlador de la lista
+              SizedBox(height: height * 0.02),
+              signInWidgets.buildField(
+                  context,
+                  AppLocalizations.of(context)!.enterPassword,
+                  Icons.password,
+                  false,
+                  list[3]), // Usar el cuarto controlador de la lista
+              SizedBox(height: height * 0.02),
+              signInWidgets.buildField(
+                  context,
+                  AppLocalizations.of(context)!.repeatPassword,
+                  Icons.repeat,
+                  false,
+                  repeatPasswordController), // Usar _repeatPasswordController
+              SizedBox(height: height * 0.04),
+              signInWidgets.buildForgotPasswordButton(context),
+              SizedBox(height: height * 0.04),
+              signInWidgets.buildSignInButton(context, list),
+            ],
           ),
         ),
       ),

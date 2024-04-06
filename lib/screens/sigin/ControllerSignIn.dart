@@ -1,4 +1,5 @@
 import 'package:ecommerce/shared/CustomAlert.dart';
+import 'package:flutter/cupertino.dart';
 
 class ControllerSignIn{
 
@@ -32,6 +33,15 @@ class ControllerSignIn{
     if (!RegExp(passwordRegex).hasMatch(password)) {
       print('La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un dígito y un carácter especial.');
       return false;
+    }
+    return true;
+  }
+
+  bool validateValues(List<TextEditingController> controllers) {
+    for (var controller in controllers) {
+      if (controller.text.isEmpty) {
+        return false;
+      }
     }
     return true;
   }
