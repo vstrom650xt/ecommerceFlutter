@@ -1,9 +1,10 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../apicalls/ApiUser.dart';
-import '../../shared/CustomDialog.dart';
+import '../../widgets/shared/CustomDialog.dart';
 
 class ControllerSignIn {
 
@@ -38,7 +39,7 @@ class ControllerSignIn {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return const dialogo(
+          return const CustomDialog(
             textoSuperior: " Rellene todos los campos",
             textInferior: "",
           );
@@ -53,7 +54,7 @@ class ControllerSignIn {
         showDialog(
           context: context,
           builder: (BuildContext context) {
-            return const dialogo(
+            return const CustomDialog(
               textoSuperior: "",
               textInferior: "dentro",
             );

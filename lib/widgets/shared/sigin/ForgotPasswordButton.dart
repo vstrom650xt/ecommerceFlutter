@@ -1,0 +1,17 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../constant/AppColors.dart';
+
+class SignInWidgets {
+  Widget buildForgotPasswordButton(BuildContext context) {
+    return TextButton(
+      onPressed: () {
+      },
+      child: Text(
+        AppLocalizations.of(context)!.forgotPassword,
+        style: const TextStyle(color: AppColors.PERSIMON),
+      ),
+    );
+  }
+}

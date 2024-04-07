@@ -1,11 +1,13 @@
+import 'package:ecommerce/widgets/shared/CustomButton.dart';
+import 'package:ecommerce/widgets/shared/CustomCircleImage.dart';
+import 'package:ecommerce/widgets/shared/CustomTextForm.dart';
+import 'package:ecommerce/widgets/shared/CustomTitle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ecommerce/constant/AppColors.dart';
 import 'package:ecommerce/responsive/ResponsiveWidget.dart';
-import 'package:ecommerce/screens/sigin/SignInWidgets.dart';
+import 'package:ecommerce/widgets/shared/sigin/SignInForm.dart';
 import '../../constant/baseurls.dart';
-import '../../shared/TabWidget.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -18,7 +20,7 @@ class SignIn extends StatelessWidget {
     final TextEditingController _addressController = TextEditingController();
     final TextEditingController _passwordController = TextEditingController();
     final TextEditingController _repeatPasswordController =
-        TextEditingController();
+    TextEditingController();
 
     var list = [
       _nameController,
@@ -28,16 +30,18 @@ class SignIn extends StatelessWidget {
       _repeatPasswordController
     ];
 
-    final SignInWidgets signInWidgets = SignInWidgets();
-
     return Scaffold(
+      appBar: ResponsiveWidget.isSmallScreen(context)
+          ? AppBar(backgroundColor: AppColors.MIDNIGHTGREEN)
+          : null,
+      // Añadir AppBar solo en smallscreen
       body: ResponsiveWidget(
         largeScreen: Row(
           children: [
             Expanded(
               child: Container(
                 color: AppColors.MIDNIGHTGREEN,
-                child: signInWidgets.buildCircleImage(context),
+                child: const CustomCircleImage(),
               ),
             ),
             Expanded(
@@ -50,109 +54,15 @@ class SignIn extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  _buildSignInForm(
-                    context,
-                    height,
-                    list,
-                    signInWidgets,
-                    _repeatPasswordController,
-                  ),
+                  SignInForm(height: height, list: list)
                 ],
               ),
             ),
           ],
         ),
-        mediumScreen: _buildSignInForm(
-            context, height, list, signInWidgets, _repeatPasswordController),
-        // Pasar _repeatPasswordController como argumento
-        smallScreen: _buildSignInForm(context, height, list, signInWidgets,
-            _repeatPasswordController), // Pasar _repeatPasswordController como argumento
+        mediumScreen: SignInForm(height: height, list: list),
+        smallScreen: SignInForm(height: height, list: list),
       ),
-    );
-  }
-
-  Widget _buildSignInForm(
-      BuildContext context,
-      double height,
-      List<TextEditingController> list,
-      SignInWidgets signInWidgets,
-      TextEditingController repeatPasswordController) {
-    return Column(
-      children: [
-        SizedBox(height: height * 0.25),
-        signInWidgets.buildTitle(context),
-        SizedBox(height: height * 0.015),
-        Column(
-          children: [
-            Center(
-              child: SizedBox(
-                width: 250,
-                child: signInWidgets.buildField(
-                    context,
-                    AppLocalizations.of(context)!.putName,
-                    Icons.abc,
-                    false,
-                    list[0]),
-              ),
-            ),
-            SizedBox(height: height * 0.015),
-
-            Center(
-              child: SizedBox(
-                width: 250,
-                child: signInWidgets.buildField(
-                    context,
-                    AppLocalizations.of(context)!.enterEmail,
-                    Icons.email,
-                    false,
-                    list[1]),
-              ),
-            ),
-            SizedBox(height: height * 0.015),
-
-            Center(
-              child: SizedBox(
-                width: 250,
-                child: signInWidgets.buildField(
-                    context,
-                    AppLocalizations.of(context)!.putAddress,
-                    Icons.house,
-                    false,
-                    list[2]),
-              ),
-            ),
-            SizedBox(height: height * 0.015),
-
-            Center(
-              child: SizedBox(
-                width: 250,
-                child: signInWidgets.buildField(
-                    context,
-                    AppLocalizations.of(context)!.enterPassword,
-                    Icons.password,
-                    false,
-                    list[3]),
-              ),
-            ),
-            SizedBox(height: height * 0.015),
-            Center(
-              child: SizedBox(
-                width: 250,
-                child: signInWidgets.buildField(
-                    context,
-                    AppLocalizations.of(context)!.repeatPassword,
-                    Icons.repeat,
-                    false,
-                    list[4]),
-              ),
-            ),
-            SizedBox(height: height * 0.04),
-            signInWidgets.buildForgotPasswordButton(context),
-            SizedBox(height: height * 0.04),
-            signInWidgets.buildSignInButton(context, list),
-          ],
-        ),
-      ],
     );
   }
 }

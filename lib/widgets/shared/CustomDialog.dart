@@ -1,11 +1,11 @@
 import 'package:ecommerce/constant/AppColors.dart';
 import 'package:flutter/material.dart';
 
-class dialogo extends StatelessWidget {
+class CustomDialog extends StatelessWidget {
   final String textoSuperior;
   final String textInferior;
 
-  const dialogo(
+  const CustomDialog(
       {super.key, required this.textoSuperior, required this.textInferior});
 
   @override

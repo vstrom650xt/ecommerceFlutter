@@ -6,10 +6,11 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import '../constant/baseurls.dart';
 import 'package:ecommerce/utils/EncryptPassword.dart';
-import '../shared/CustomDialog.dart';
+import '../widgets/shared/CustomDialog.dart';
 
-class ApiUser  {
-  Future<bool> saveUser(List<TextEditingController> values, BuildContext context) async {
+class ApiUser {
+  Future<bool> saveUser(
+      List<TextEditingController> values, BuildContext context) async {
     ControllerSignIn controllerSignIn = ControllerSignIn();
     final url = Uri.parse(BaseUrls.BASEURLAPI + 'users/save/');
     String name = values[0].text;
@@ -20,7 +21,7 @@ class ApiUser  {
     DateTime creationDate = DateTime.now();
     DateTime? modifiedDate;
     String formattedDate =
-    DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ').format(creationDate);
+        DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ').format(creationDate);
     String encryptedPassword = EncryptPassword.hashPassword(password);
     bool savedSuccessfully = false;
 
@@ -28,19 +29,20 @@ class ApiUser  {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return const dialogo(
+          return const CustomDialog(
             textoSuperior: " ",
             textInferior: "contraseñas no iguales",
           );
         },
-      );      return savedSuccessfully;
+      );
+      return savedSuccessfully;
     }
 
     if (!controllerSignIn.isStrongPassword(password)) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return const dialogo(
+          return const CustomDialog(
             textoSuperior: " ",
             textInferior: "contraseña debil ",
           );
@@ -54,7 +56,7 @@ class ApiUser  {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return const dialogo(
+          return const CustomDialog(
             textoSuperior: " ",
             textInferior: "formato del correo electrónico no es válido",
           );
@@ -86,7 +88,8 @@ class ApiUser  {
 
       if (response.statusCode == 200) {
         print('Datos guardados con éxito.');
-        savedSuccessfully = true; // Cambiar el valor a true si se guardan correctamente
+        savedSuccessfully =
+            true; // Cambiar el valor a true si se guardan correctamente
       } else {
         print(
             'Error al guardar los datos. Código de estado: ${response.statusCode}');
@@ -97,5 +100,4 @@ class ApiUser  {
 
     return savedSuccessfully; // Devolver el valor actualizado
   }
-
 }

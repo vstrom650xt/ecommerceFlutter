@@ -12,7 +12,8 @@
     "createAccount": "Create your account",
     "enter": "Enter",
     "putAddress": "Put your address",
-    "putName": "Put your name"
+    "putName": "Put your name",
+    "close": "Close"
 
 
 
