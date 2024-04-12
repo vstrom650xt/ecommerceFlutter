@@ -1,33 +1,28 @@
-import 'package:ecommerce/widgets/shared/CustomButton.dart';
 import 'package:ecommerce/widgets/shared/CustomCircleImage.dart';
-import 'package:ecommerce/widgets/shared/CustomTextForm.dart';
-import 'package:ecommerce/widgets/shared/CustomTitle.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/constant/AppColors.dart';
 import 'package:ecommerce/responsive/ResponsiveWidget.dart';
-import 'package:ecommerce/widgets/shared/sigin/SignInForm.dart';
+import 'package:ecommerce/widgets/sigin/SignInForm.dart';
 import '../../constant/baseurls.dart';
 
 class SignIn extends StatelessWidget {
-  const SignIn({Key? key}) : super(key: key);
+  const SignIn({super.key});
 
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
-    final TextEditingController _nameController = TextEditingController();
-    final TextEditingController _emailController = TextEditingController();
-    final TextEditingController _addressController = TextEditingController();
-    final TextEditingController _passwordController = TextEditingController();
-    final TextEditingController _repeatPasswordController =
-    TextEditingController();
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController addressController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+    final TextEditingController repeatPasswordController = TextEditingController();
 
     var list = [
-      _nameController,
-      _emailController,
-      _addressController,
-      _passwordController,
-      _repeatPasswordController
+      nameController,
+      emailController,
+      addressController,
+      passwordController,
+      repeatPasswordController
     ];
 
     return Scaffold(

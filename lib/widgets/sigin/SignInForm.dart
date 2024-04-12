@@ -1,17 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../widgets/shared/CustomButton.dart';
-import '../../widgets/shared/CustomTextForm.dart';
-import '../../widgets/shared/CustomTitle.dart';
+import '../shared/CustomButton.dart';
+import '../shared/CustomTextForm.dart';
+import '../shared/CustomTitle.dart';
 
-class LoginWidgets {
+class SignInForm extends StatelessWidget {
+  final double height;
+  final List<TextEditingController> list;
 
+  const SignInForm({
+    super.key,
+    required this.height,
+    required this.list,
+  });
 
-  Widget buildLoginForm(BuildContext context,
-      double height,
-      List<TextEditingController> list,
-     ) {
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(height: height * 0.25),
@@ -22,7 +26,7 @@ class LoginWidgets {
             SizedBox(height: height * 0.015),
             Center(
               child: SizedBox(
-                width: 250,
+                width: 200,
                 child: CustomTextForm(
                   text: AppLocalizations.of(context)!.putName,
                   iconData: Icons.abc,
@@ -34,7 +38,7 @@ class LoginWidgets {
             SizedBox(height: height * 0.015),
             Center(
               child: SizedBox(
-                width: 250,
+                width: 200,
                 child: CustomTextForm(
                   text: AppLocalizations.of(context)!.enterEmail,
                   iconData: Icons.email,
@@ -44,25 +48,46 @@ class LoginWidgets {
               ),
             ),
             SizedBox(height: height * 0.015),
-
             Center(
               child: SizedBox(
-                width: 250,
+                width: 200,
+                child: CustomTextForm(
+                  text: AppLocalizations.of(context)!.putAddress,
+                  iconData: Icons.house,
+                  obscureText: false,
+                  controller: list[2],
+                ),
+              ),
+            ),
+            SizedBox(height: height * 0.015),
+            Center(
+              child: SizedBox(
+                width: 200,
                 child: CustomTextForm(
                   text: AppLocalizations.of(context)!.enterPassword,
                   iconData: Icons.password,
-                  obscureText: false,
+                  obscureText: true,
                   controller: list[3],
                 ),
               ),
             ),
-
+            SizedBox(height: height * 0.015),
+            Center(
+              child: SizedBox(
+                width: 200,
+                child: CustomTextForm(
+                  text: AppLocalizations.of(context)!.repeatPassword,
+                  iconData: Icons.repeat,
+                  obscureText: true,
+                  controller: list[4],
+                ),
+              ),
+            ),
             SizedBox(height: height * 0.04),
-            CustomButton(listTextEditingController: list),
+            CustomButton(listTextEditingController: list,text: 'Crear cuenta',),
           ],
         ),
       ],
     );
   }
-
 }

@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import '../constant/baseurls.dart';
+import '../../constant/baseurls.dart';
 import 'package:ecommerce/utils/EncryptPassword.dart';
-import '../widgets/shared/CustomDialog.dart';
+import '../../widgets/shared/CustomDialog.dart';
 
 class ApiUser {
   Future<bool> saveUser(

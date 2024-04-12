@@ -1,15 +1,16 @@
+import 'package:ecommerce/firebase_options.dart';
+import 'package:ecommerce/screens/resetpassword/ResetPassword.dart';
 
-
-import 'package:ecommerce/screens/login/Login.dart';
-import 'package:ecommerce/screens/sigin/SignIn.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/l10n/L10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-void main() async{
+void main() async {
+  //FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -20,24 +21,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      supportedLocales: L10n.all,
-      locale: const Locale('es'),
-      localizationsDelegates: const[
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-
-      ],
-
-      home:  SignIn() ////////////////
-      //const MyHomePage(title: 'hello'),
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        supportedLocales: L10n.all,
+        locale: const Locale('es'),
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        home: ResetPassword() ////////////////
+        //const MyHomePage(title: 'hello'),
+        );
   }
 }
 
@@ -110,8 +109,8 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-             Text(
-             AppLocalizations.of(context)!.language,
+            Text(
+              AppLocalizations.of(context)!.language,
             ),
             Text(
               '$_counter',

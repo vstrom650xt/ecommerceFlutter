@@ -5,8 +5,9 @@ import '../../screens/sigin/ControllerSignIn.dart';
 
 class CustomButton extends StatelessWidget {
   final List<TextEditingController> listTextEditingController;
+  final String text;
 
-  const CustomButton({Key? key, required this.listTextEditingController}) : super(key: key);
+  const CustomButton({Key? key, required this.listTextEditingController , required String this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +24,10 @@ class CustomButton extends StatelessWidget {
         onTap: () async {
           controllerSignIn.sigIn(context, listTextEditingController);
         },
-        child: const Center(
+        child:  Center(
           child: Text(
-            'Iniciar sesión', // Texto del botón
-            style: TextStyle(
+            text, // Texto del botón
+            style: const TextStyle(
               color: Colors.white, // Color del texto
               fontSize: 16.0, // Tamaño del texto
             ),
