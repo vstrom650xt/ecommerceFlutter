@@ -1,3 +1,4 @@
+import 'package:ecommerce/screens/sigin/ControllerSignIn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../shared/CustomButton.dart';
@@ -16,10 +17,11 @@ class SignInForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ControllerSignIn controllerSignIn = ControllerSignIn();
     return Column(
       children: [
         SizedBox(height: height * 0.25),
-        CustomTitle(),
+        CustomTitle(text: AppLocalizations.of(context)!.createAccount),
         SizedBox(height: height * 0.015),
         Column(
           children: [
@@ -84,7 +86,12 @@ class SignInForm extends StatelessWidget {
               ),
             ),
             SizedBox(height: height * 0.04),
-            CustomButton(listTextEditingController: list,text: 'Crear cuenta',),
+            CustomButton(
+                listTextEditingController: list,
+                text: 'Crear cuenta',
+                onTap: () async {
+                  await controllerSignIn.sigIn(context, list);
+                })
           ],
         ),
       ],

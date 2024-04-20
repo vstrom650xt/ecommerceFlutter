@@ -1,5 +1,8 @@
 import 'package:ecommerce/firebase_options.dart';
+import 'package:ecommerce/screens/home/home_screen.dart';
+import 'package:ecommerce/screens/login/Login.dart';
 import 'package:ecommerce/screens/resetpassword/ResetPassword.dart';
+import 'package:ecommerce/screens/sigin/SignIn.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +37,7 @@ class MyApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        home: ResetPassword() ////////////////
+        home: LoginScreen() ////////////////
         //const MyHomePage(title: 'hello'),
         );
   }

@@ -1,4 +1,4 @@
-import 'package:ecommerce/apicalls/auth/ApiAuth.dart';
+import 'package:ecommerce/apicalls/auth/ProvidersAuth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

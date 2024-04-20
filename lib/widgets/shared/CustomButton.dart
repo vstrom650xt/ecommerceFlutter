@@ -6,13 +6,17 @@ import '../../screens/sigin/ControllerSignIn.dart';
 class CustomButton extends StatelessWidget {
   final List<TextEditingController> listTextEditingController;
   final String text;
+  final VoidCallback onTap;
 
-  const CustomButton({Key? key, required this.listTextEditingController , required String this.text}) : super(key: key);
+  const CustomButton({
+    Key? key,
+    required this.listTextEditingController,
+    required this.text,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ControllerSignIn controllerSignIn = ControllerSignIn();
-
     return Container(
       width: 200.0,
       height: 50.0,
@@ -21,10 +25,8 @@ class CustomButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: InkWell(
-        onTap: () async {
-          controllerSignIn.sigIn(context, listTextEditingController);
-        },
-        child:  Center(
+        onTap: onTap,
+        child: Center(
           child: Text(
             text, // Texto del botón
             style: const TextStyle(
