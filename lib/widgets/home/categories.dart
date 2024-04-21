@@ -11,12 +11,11 @@ class Categories extends StatefulWidget {
 }
 
 class _CategoriesState extends State<Categories> {
-  late Future<List<Category>> _categoriesFuture; // Estado futuro de la lista de categorías
+  late Future<List<Category>> _categoriesFuture;
 
   @override
   void initState() {
     super.initState();
-    // Inicializa la llamada a la API para obtener las categorías cuando se inicia el widget
     _categoriesFuture = ApiCategory().fetchCategories();
   }
 
