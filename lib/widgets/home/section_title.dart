@@ -1,3 +1,4 @@
+import 'package:ecommerce/constant/AppColors.dart';
 import 'package:flutter/material.dart';
 
 class SectionTitle extends StatelessWidget {
@@ -20,7 +21,7 @@ class SectionTitle extends StatelessWidget {
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
-            color: Colors.black,
+            color: AppColors.PERSIMON,
           ),
         ),
         TextButton(

@@ -26,7 +26,7 @@ class SignIn extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: ResponsiveWidget.isSmallScreen(context)
+      appBar: ResponsiveWidget.isSmallScreen(context) || ResponsiveWidget.isMediumScreen(context)
           ? AppBar(backgroundColor: AppColors.MIDNIGHTGREEN)
           : null,
       // Añadir AppBar solo en smallscreen

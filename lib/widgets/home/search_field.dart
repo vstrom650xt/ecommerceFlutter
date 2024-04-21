@@ -12,15 +12,15 @@ class SearchField extends StatelessWidget {
     return Form(
       child: TextFormField(
         onChanged: (value) {},
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           filled: true,
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           border: searchOutlineInputBorder,
           focusedBorder: searchOutlineInputBorder,
           enabledBorder: searchOutlineInputBorder,
           hintText: "Search product",
-          prefixIcon: const Icon(Icons.search),
+          prefixIcon: Icon(Icons.search),
         ),
       ),
     );

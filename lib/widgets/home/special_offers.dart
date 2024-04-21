@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../constant/baseurls.dart';
 import 'section_title.dart';
 
 class SpecialOffers extends StatelessWidget {
@@ -23,21 +25,30 @@ class SpecialOffers extends StatelessWidget {
           child: Row(
             children: [
               SpecialOfferCard(
-                image: "assets/images/Image Banner 2.png",
+                imageUrl: '${BaseUrls.IMGURLS}productos/raton/raton1.jpeg',
                 category: "Smartphone",
                 numOfBrands: 18,
                 press: () {
-                  Navigator.pushNamed(context,'');
+                  Navigator.pushNamed(context, '');
                 },
               ),
               SpecialOfferCard(
-                image: "assets/images/Image Banner 3.png",
+                imageUrl: '${BaseUrls.IMGURLS}productos/teclado/1930-forgeon-clutch-teclado-gaming-rgb-60-switch-red.webp',
                 category: "Fashion",
                 numOfBrands: 24,
                 press: () {
                   Navigator.pushNamed(context, '');
                 },
               ),
+              SpecialOfferCard(
+                imageUrl: '${BaseUrls.IMGURLS}productos/pantallas/pantalla1.png',
+                category: "Fashion",
+                numOfBrands: 24,
+                press: () {
+                  Navigator.pushNamed(context, '');
+                },
+              ),
+
               const SizedBox(width: 20),
             ],
           ),
@@ -51,12 +62,12 @@ class SpecialOfferCard extends StatelessWidget {
   const SpecialOfferCard({
     Key? key,
     required this.category,
-    required this.image,
+    required this.imageUrl,
     required this.numOfBrands,
     required this.press,
   }) : super(key: key);
 
-  final String category, image;
+  final String category, imageUrl;
   final int numOfBrands;
   final GestureTapCallback press;
 
@@ -73,9 +84,11 @@ class SpecialOfferCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: [
-                Image.asset(
-                  image,
-                  fit: BoxFit.cover,
+                Align(alignment: Alignment.centerRight,
+                  child: Image.network(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Container(
                   decoration: const BoxDecoration(

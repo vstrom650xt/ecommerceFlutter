@@ -33,10 +33,10 @@ class LoginForm extends StatelessWidget {
               child: SizedBox(
                 width: 200,
                 child: CustomTextForm(
-                  text: AppLocalizations.of(context)!.enterEmail,
+                  text: AppLocalizations.of(context)!.putEmail,
                   iconData: Icons.email,
                   obscureText: false,
-                  controller: list[0],
+                  controller: list[0], label: '', tooltipText: '',
                 ),
               ),
             ),
@@ -46,10 +46,10 @@ class LoginForm extends StatelessWidget {
               child: SizedBox(
                 width: 200,
                 child: CustomTextForm(
-                  text: AppLocalizations.of(context)!.enterPassword,
+                  text: AppLocalizations.of(context)!.putPassword,
                   iconData: Icons.password,
                   obscureText: true,
-                  controller: list[1],
+                  controller: list[1], label: '', tooltipText: '',
                 ),
               ),
             ),

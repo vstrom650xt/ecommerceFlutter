@@ -28,61 +28,72 @@ class SignInForm extends StatelessWidget {
             SizedBox(height: height * 0.015),
             Center(
               child: SizedBox(
-                width: 200,
+                width: 300,
                 child: CustomTextForm(
-                  text: AppLocalizations.of(context)!.putName,
+                  text: '',
                   iconData: Icons.abc,
                   obscureText: false,
                   controller: list[0],
+                  label: AppLocalizations.of(context)!.putName,
+                  tooltipText: '',
                 ),
               ),
             ),
             SizedBox(height: height * 0.015),
             Center(
               child: SizedBox(
-                width: 200,
+                width: 300,
                 child: CustomTextForm(
-                  text: AppLocalizations.of(context)!.enterEmail,
+                  text: '',
                   iconData: Icons.email,
                   obscureText: false,
                   controller: list[1],
+                  label: AppLocalizations.of(context)!.putEmail,
+                  tooltipText: '',
                 ),
               ),
             ),
             SizedBox(height: height * 0.015),
             Center(
               child: SizedBox(
-                width: 200,
+                width: 300,
                 child: CustomTextForm(
-                  text: AppLocalizations.of(context)!.putAddress,
+                  text: '',
                   iconData: Icons.house,
                   obscureText: false,
                   controller: list[2],
+                  label: AppLocalizations.of(context)!.putAddress,
+                  tooltipText: '',
                 ),
               ),
             ),
             SizedBox(height: height * 0.015),
             Center(
               child: SizedBox(
-                width: 200,
+                width: 300,
                 child: CustomTextForm(
-                  text: AppLocalizations.of(context)!.enterPassword,
+                  text: '',
                   iconData: Icons.password,
                   obscureText: true,
                   controller: list[3],
+                  label: AppLocalizations.of(context)!.putPassword,
+                  tooltipText: AppLocalizations.of(context)!
+                      .passwordTooltip
+        .replaceAll('\\n', '\n'),
                 ),
               ),
             ),
             SizedBox(height: height * 0.015),
             Center(
               child: SizedBox(
-                width: 200,
+                width: 300,
                 child: CustomTextForm(
-                  text: AppLocalizations.of(context)!.repeatPassword,
-                  iconData: Icons.repeat,
-                  obscureText: true,
-                  controller: list[4],
-                ),
+                    text: '',
+                    iconData: Icons.repeat,
+                    obscureText: true,
+                    controller: list[4],
+                    label: AppLocalizations.of(context)!.repeatPassword,
+                    tooltipText:''),
               ),
             ),
             SizedBox(height: height * 0.04),

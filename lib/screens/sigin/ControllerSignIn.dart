@@ -113,8 +113,7 @@ class ControllerSignIn {
       }
     } catch (error) {
       String errorMessage = error.toString();
-      // Handle error
-      // ...
+
       print(errorMessage);
     }
   }

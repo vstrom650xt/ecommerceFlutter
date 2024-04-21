@@ -5,17 +5,20 @@
     "cart" : "Carrito",
     "lets" : "Vámos a ",
     "signing" : "Iniciar sesión",
-    "enterEmail": "Pon tu email",
-    "enterPassword": "Pon tu contraseña",
-    "repeatPassword": "Repita su contraseña",
+    "putEmail": "Introduce tu email",
+    "putPassword": "Introduce tu contraseña",
+    "repeatPassword": "Introduce tu contraseña de nuevo",
     "forgotPassword": "¿Has olvidado tu contraseña?",
     "createAccount": "Crea tu cuenta",
     "enter": "Entrar",
-    "putAddress": "Ponga su dirección",
-    "putName": "Ponga su nombre completo",
-    "close": "Cerrar"
-
-
+    "putAddress": "Introduce tu dirección",
+    "putName": "Introduce tu nombre completo",
+    "close": "Cerrar",
+    "name": "Nombre",
+    "email": "Email",
+    "address": "Dirección",
+    "password": "Contraseña",
+    "passwordTooltip": "* La contraseña debe tener al menos 8 caracteres \n* Al menos una letra mayúscula\n* Al menos una letra minúscula\n* Al menos un dígito\n* Al menos un carácter especial (e.g. !@#%^&*)"
 
 
 

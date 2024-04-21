@@ -1,16 +1,15 @@
+import 'package:ecommerce/constant/AppColors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 
 class IconBtnWithCounter extends StatelessWidget {
   const IconBtnWithCounter({
     Key? key,
-    required this.svgSrc,
+    required this.icon,
     this.numOfitem = 0,
     required this.press,
   }) : super(key: key);
 
-  final String svgSrc;
+  final IconData icon;
   final int numOfitem;
   final GestureTapCallback press;
 
@@ -26,10 +25,14 @@ class IconBtnWithCounter extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             height: 46,
             width: 46,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
             ),
-            child: SvgPicture.asset(svgSrc),
+            child: Icon(
+              icon,
+              size: 24,
+              color: AppColors.PERSIMON,
+            ),
           ),
           if (numOfitem != 0)
             Positioned(
@@ -39,9 +42,9 @@ class IconBtnWithCounter extends StatelessWidget {
                 height: 20,
                 width: 20,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFF4848),
+                  color: AppColors.YELLOWGREEN,
                   shape: BoxShape.circle,
-                  border: Border.all(width: 1.5, color: Colors.white),
+                  border: Border.all(width: 1.5, color: AppColors.WHITE),
                 ),
                 child: Center(
                   child: Text(
@@ -50,7 +53,7 @@ class IconBtnWithCounter extends StatelessWidget {
                       fontSize: 12,
                       height: 1,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: AppColors.WHITE,
                     ),
                   ),
                 ),

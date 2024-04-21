@@ -18,14 +18,14 @@ class HomeHeader extends StatelessWidget {
           const Expanded(child: SearchField()),
           const SizedBox(width: 16),
           IconBtnWithCounter(
-            svgSrc: "assets/icons/Cart Icon.svg",
-            press: () => Navigator.pushNamed(context,''),
+            press: () => Navigator.pushNamed(context, ''),
+            icon: Icons.shopping_cart,
           ),
           const SizedBox(width: 8),
           IconBtnWithCounter(
-            svgSrc: "assets/icons/Bell.svg",
             numOfitem: 3,
             press: () {},
+            icon: Icons.notifications,
           ),
         ],
       ),

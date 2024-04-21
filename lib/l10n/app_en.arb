@@ -1,23 +1,22 @@
 {
-    "language" :"English",
+    "language": "English",
     "home": "Home",
-    "account" : "Account",
-    "cart" : "Cart",
-    "lets" : "Let’s ",
-    "signing" : "Sign In",
-    "enterEmail": "Enter your email",
-    "enterPassword": "Enter your password",
+    "account": "Account",
+    "cart": "Cart",
+    "lets": "Let’s ",
+    "signing": "Sign In",
+    "putEmail": "Enter your email",
+    "putPassword": "Enter your password",
     "repeatPassword": "Repeat your password",
     "forgotPassword": "Forgot Password?",
     "createAccount": "Create your account",
     "enter": "Enter",
     "putAddress": "Put your address",
     "putName": "Put your name",
-    "close": "Close"
-
-
-
-
-
-
+    "close": "Close",
+    "name": "Name",
+    "email": "Email",
+    "address": "Address",
+    "password": "Password",
+    "passwordTooltip": "* The password must be at least 8 characters long \n* At least one uppercase letter\n* At least one lowercase letter\n* At least one digit\n* At least one special character (e.g. !@#%^&*)"
 }
