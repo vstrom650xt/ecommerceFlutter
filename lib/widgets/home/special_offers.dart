@@ -1,76 +1,91 @@
+import 'package:ecommerce/apicalls/product/ApiProduct.dart';
+import 'package:ecommerce/constant/baseurls.dart';
+import 'package:ecommerce/model/Product.dart';
+import 'package:ecommerce/widgets/home/section_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../constant/baseurls.dart';
-import 'section_title.dart';
-
-class SpecialOffers extends StatelessWidget {
+class SpecialOffers extends StatefulWidget {
   const SpecialOffers({
     Key? key,
   }) : super(key: key);
 
   @override
+  _SpecialOffersState createState() => _SpecialOffersState();
+}
+
+class _SpecialOffersState extends State<SpecialOffers> {
+  late Future<List<Product>>
+      _productBrench;
+
+  @override
+  void initState() {
+    super.initState();
+    _productBrench = ApiProduct().fetchProductsBrench();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    List<String> imageUrls = [
+      BaseUrls.IMGURLS + '/marcas/Steel.png',
+      BaseUrls.IMGURLS + '/marcas/Forgeon.png',
+      BaseUrls.IMGURLS + '/marcas/Razer.png',
+      BaseUrls.IMGURLS + '/marcas/Tempest.png',
+      BaseUrls.IMGURLS + '/marcas/hp.png',
+
+    ];
+
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SectionTitle(
-            title: "Special for you",
+            title: "Brenchs",
             press: () {},
           ),
         ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              SpecialOfferCard(
-                imageUrl: '${BaseUrls.IMGURLS}productos/raton/raton1.jpeg',
-                category: "Smartphone",
-                numOfBrands: 18,
-                press: () {
-                  Navigator.pushNamed(context, '');
-                },
-              ),
-              SpecialOfferCard(
-                imageUrl: '${BaseUrls.IMGURLS}productos/teclado/1930-forgeon-clutch-teclado-gaming-rgb-60-switch-red.webp',
-                category: "Fashion",
-                numOfBrands: 24,
-                press: () {
-                },
-              ),
-              SpecialOfferCard(
-                imageUrl: '${BaseUrls.IMGURLS}productos/pantallas/pantalla1.png',
-                category: "Fashion",
-                numOfBrands: 24,
-                press: () {
-                },
-              ),
-
-              const SizedBox(width: 20),
-            ],
+        SizedBox(
+          height: 100,
+          child: FutureBuilder<List<Product>>(
+            future: _productBrench,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 5, ////////////////////////////////numero items
+                  itemBuilder: (context, index) {
+                    return _buildSpecialOffer(
+                      imageUrl: imageUrls[index], // Pasa la URL manualmente
+                      name: snapshot.data![index].marca,
+                      press: () {
+                      },
+                    );
+                  },
+                );
+              } else {
+                return Center(
+                  child: Text('No special offers available'),
+                );
+              }
+            },
           ),
         ),
       ],
     );
   }
-}
 
-class SpecialOfferCard extends StatelessWidget {
-  const SpecialOfferCard({
-    Key? key,
-    required this.category,
-    required this.imageUrl,
-    required this.numOfBrands,
-    required this.press,
-  }) : super(key: key);
-
-  final String category, imageUrl;
-  final int numOfBrands;
-  final GestureTapCallback press;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildSpecialOffer({
+    required String imageUrl,
+    required String name,
+    //required int numOfBrands,
+    required GestureTapCallback press,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(left: 20),
       child: GestureDetector(
@@ -82,43 +97,54 @@ class SpecialOfferCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: [
-                Align(alignment: Alignment.centerRight,
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
-                  ),
+                Image.network(
+                  imageUrl,
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
                 ),
-                Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black54,
-                        Colors.black38,
-                        Colors.black26,
-                        Colors.transparent,
-                      ],
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                      vertical: 10,
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 10,
-                  ),
-                  child: Text.rich(
-                    TextSpan(
-                      style: const TextStyle(color: Colors.white),
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomRight,
+                        end: Alignment.topCenter,
+                        colors: [
+                          Colors.black87,
+                          Colors.black54,
+                          Colors.black38,
+                          Colors.black26,
+                          Colors.transparent,
+                        ],
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextSpan(
-                          text: "$category\n",
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text(
+                            name,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                        TextSpan(text: "$numOfBrands Brands")
+                        // Text(
+                        //   '$numOfBrands Brands',
+                        //   style: const TextStyle(
+                        //     color: Colors.white,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

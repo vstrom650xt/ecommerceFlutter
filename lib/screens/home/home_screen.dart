@@ -18,9 +18,9 @@ class HomeScreen extends StatelessWidget {
     return const Scaffold(
       body: SafeArea(
         child: ResponsiveWidget(
-          largeScreen:LargeScreenContent(),
+          largeScreen: LargeScreenContent(),
           mediumScreen: MediumScreenContent(),
-          smallScreen:SmallScreenContent(),
+          smallScreen: SmallScreenContent(),
         ),
       ),
     );
@@ -39,7 +39,6 @@ class LargeScreenContent extends StatelessWidget {
           HomeHeader(),
           Categories(),
           DiscountBanner(),
-
           SpecialOffers(),
           SizedBox(height: 20),
           PopularProducts(),
@@ -62,7 +61,6 @@ class MediumScreenContent extends StatelessWidget {
           HomeHeader(),
           Categories(),
           DiscountBanner(),
-
           SpecialOffers(),
           SizedBox(height: 20),
           PopularProducts(),
