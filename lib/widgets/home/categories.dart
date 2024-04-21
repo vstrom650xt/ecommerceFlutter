@@ -40,7 +40,7 @@ class _CategoriesState extends State<Categories> {
                 children: List.generate(
                   snapshot.data!.length,
                       (index) => CategoryCard(
-                    imageUrl: snapshot.data![index].url, // Cambiado de 'icon' a 'imageUrl'
+                    imageUrl: snapshot.data![index].url,
                     text: snapshot.data![index].name,
                     press: () {},
                   ),

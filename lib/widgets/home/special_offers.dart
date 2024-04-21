@@ -37,7 +37,6 @@ class SpecialOffers extends StatelessWidget {
                 category: "Fashion",
                 numOfBrands: 24,
                 press: () {
-                  Navigator.pushNamed(context, '');
                 },
               ),
               SpecialOfferCard(
@@ -45,7 +44,6 @@ class SpecialOffers extends StatelessWidget {
                 category: "Fashion",
                 numOfBrands: 24,
                 press: () {
-                  Navigator.pushNamed(context, '');
                 },
               ),
 
