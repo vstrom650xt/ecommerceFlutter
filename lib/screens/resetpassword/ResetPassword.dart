@@ -5,7 +5,7 @@ import 'package:ecommerce/responsive/ResponsiveWidget.dart';
 import 'package:flutter/widgets.dart';
 import '../../constant/AppColors.dart';
 
-import '../../widgets/resetpassword/ResetPasswordForm.dart';
+import 'widgets/ResetPasswordForm.dart';
 import '../../widgets/shared/CustomCircleImage.dart';
 
 class ResetPassword extends StatelessWidget {
@@ -30,7 +30,7 @@ class ResetPassword extends StatelessWidget {
               height: height,
             ),
             Center(
-              child: const ResetPasswordForm(),
+              child:  ResetPasswordForm(),
             ),
 
 

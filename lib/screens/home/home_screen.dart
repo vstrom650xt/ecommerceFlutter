@@ -1,17 +1,17 @@
+import 'package:ecommerce/screens/home/widgets/popular_product.dart';
+import 'package:ecommerce/screens/home/widgets/special_offers.dart';
 import 'package:flutter/material.dart';
 
-import '../../widgets/home/categories.dart';
-import '../../widgets/home/discount_banner.dart';
-import '../../widgets/home/home_header.dart';
-import '../../widgets/home/popular_product.dart';
-import '../../widgets/home/special_offers.dart';
+import 'widgets/categories.dart';
+import 'widgets/discount_banner.dart';
+import 'widgets/home_header.dart';
 
 import '../../responsive/ResponsiveWidget.dart';
 
 class HomeScreen extends StatelessWidget {
   static String routeName = "/home";
 
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,9 @@ class HomeScreen extends StatelessWidget {
 }
 
 class LargeScreenContent extends StatelessWidget {
-  const LargeScreenContent({super.key});
+  const LargeScreenContent({
+    Key? key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class LargeScreenContent extends StatelessWidget {
 }
 
 class MediumScreenContent extends StatelessWidget {
-  const MediumScreenContent({super.key});
+  const MediumScreenContent({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +74,9 @@ class MediumScreenContent extends StatelessWidget {
 }
 
 class SmallScreenContent extends StatelessWidget {
-  const SmallScreenContent({super.key});
+  const SmallScreenContent({
+    Key? key,
+  });
 
   @override
   Widget build(BuildContext context) {

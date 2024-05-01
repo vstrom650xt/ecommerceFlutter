@@ -26,5 +26,31 @@ class ApiProduct {
       throw Exception('Failed to load categories');
     }
   }
+
+  Future<List<Product>> fetchMostSoldProducts() async {
+    final response = await http.get(Uri.parse(BaseUrls.BASEURLAPI + 'products/getMostSold'));
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body);
+
+      List<Product> mostSoldProducts = [];
+
+      for (Map<String, dynamic> productData in data) {
+        Product product = Product.fromJson(productData);
+        mostSoldProducts.add(product);
+      }
+      print(mostSoldProducts);
+
+      return mostSoldProducts;
+    } else {
+      throw Exception('Failed to load most sold products');
+    }
+  }
+
+
+
+
+
+
+
 }
 

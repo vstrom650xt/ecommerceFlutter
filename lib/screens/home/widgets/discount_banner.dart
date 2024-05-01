@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../constant/AppColors.dart';
-import '../../constant/baseurls.dart';
+import '../../../constant/AppColors.dart';
+import '../../../constant/baseurls.dart';
 
 class DiscountBanner extends StatelessWidget {
   const DiscountBanner({

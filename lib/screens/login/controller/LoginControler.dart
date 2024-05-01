@@ -3,14 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginController {
-  static Future<void> sendPasswordResetEmail(String email) async {
-    try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-    } catch (error) {
-      String errorMessage = error.toString();
-      print(errorMessage);
-    }
-  }
 
   static Future<bool> signInWithEmailAndPassword(
       BuildContext context, String email, String password) async {

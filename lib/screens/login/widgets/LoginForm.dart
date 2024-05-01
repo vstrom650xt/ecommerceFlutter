@@ -1,12 +1,14 @@
 import 'package:ecommerce/screens/home/home_screen.dart';
-import 'package:ecommerce/screens/login/LoginControler.dart';
-import 'package:ecommerce/widgets/login/IconRow.dart';
+import 'package:ecommerce/screens/login/controller/LoginControler.dart';
+import 'package:ecommerce/screens/login/widgets/IconRow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../shared/CustomButton.dart';
-import '../shared/CustomTextForm.dart';
-import '../shared/CustomTitle.dart';
+
+import '../../../widgets/shared/CustomButton.dart';
+import '../../../widgets/shared/CustomTextForm.dart';
+import '../../../widgets/shared/CustomTitle.dart';
 import 'ForgotPasswordButton.dart';
+
 
 class LoginForm extends StatelessWidget {
   const LoginForm({
@@ -33,10 +35,10 @@ class LoginForm extends StatelessWidget {
               child: SizedBox(
                 width: 200,
                 child: CustomTextForm(
-                  text: AppLocalizations.of(context)!.putEmail,
+                  text:'',
                   iconData: Icons.email,
                   obscureText: false,
-                  controller: list[0], label: '', tooltipText: '',
+                  controller: list[0], label:  AppLocalizations.of(context)!.putEmail, tooltipText: '',
                 ),
               ),
             ),
@@ -46,10 +48,10 @@ class LoginForm extends StatelessWidget {
               child: SizedBox(
                 width: 200,
                 child: CustomTextForm(
-                  text: AppLocalizations.of(context)!.putPassword,
+                  text: '',
                   iconData: Icons.password,
                   obscureText: true,
-                  controller: list[1], label: '', tooltipText: '',
+                  controller: list[1], label: AppLocalizations.of(context)!.putPassword, tooltipText: '',
                 ),
               ),
             ),
@@ -57,7 +59,9 @@ class LoginForm extends StatelessWidget {
             SizedBox(height: height * 0.01),
             IconRow(height:height),
             //SizedBox(height: height * 0.025),
-            ForgotPasswordButton(),
+            ForgotPasswordButton(
+
+            ),
             SizedBox(height: height * 0.03),
             CustomButton(
               listTextEditingController: list,

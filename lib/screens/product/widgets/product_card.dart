@@ -2,7 +2,7 @@ import 'package:ecommerce/constant/AppColors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../model/Product.dart';
+import '../../../model/Product.dart';
 
 
 
@@ -64,7 +64,7 @@ class ProductCard extends StatelessWidget {
                     height: 24,
                     width: 24,
                     decoration: BoxDecoration(
-                      color: product.esMasVendido
+                      color: product.masVendido
                           ? AppColors.PERSIMON.withOpacity(0.15)
                           : AppColors.PERSIMON.withOpacity(0.1),
                       shape: BoxShape.circle,
@@ -72,7 +72,7 @@ class ProductCard extends StatelessWidget {
                     child: SvgPicture.asset(
                       "assets/icons/Heart Icon_2.svg",
                       colorFilter: ColorFilter.mode(
-                          product.esMasVendido
+                          product.masVendido
                               ? const Color(0xFFFF4848)
                               : const Color(0xFFDBDEE4),
                           BlendMode.srcIn),

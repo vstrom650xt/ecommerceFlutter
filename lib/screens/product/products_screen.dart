@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/product/product_card.dart';
+import 'widgets/product_card.dart';
 
 
 class ProductsScreen extends StatelessWidget {

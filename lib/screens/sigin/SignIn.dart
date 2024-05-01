@@ -2,7 +2,7 @@ import 'package:ecommerce/widgets/shared/CustomCircleImage.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/constant/AppColors.dart';
 import 'package:ecommerce/responsive/ResponsiveWidget.dart';
-import 'package:ecommerce/widgets/sigin/SignInForm.dart';
+import 'package:ecommerce/screens/sigin/widgets/SignInForm.dart';
 import '../../constant/baseurls.dart';
 
 class SignIn extends StatelessWidget {
@@ -29,7 +29,6 @@ class SignIn extends StatelessWidget {
       appBar: ResponsiveWidget.isSmallScreen(context) || ResponsiveWidget.isMediumScreen(context)
           ? AppBar(backgroundColor: AppColors.MIDNIGHTGREEN)
           : null,
-      // Añadir AppBar solo en smallscreen
       body: ResponsiveWidget(
         largeScreen: Row(
           children: [
@@ -55,8 +54,8 @@ class SignIn extends StatelessWidget {
             ),
           ],
         ),
-        mediumScreen: SignInForm(height: height, list: list),
-        smallScreen: SignInForm(height: height, list: list),
+        mediumScreen: SignInForm(height: height/2, list: list),
+        smallScreen: SignInForm(height: height/2, list: list),
       ),
     );
   }

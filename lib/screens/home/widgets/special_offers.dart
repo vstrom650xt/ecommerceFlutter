@@ -1,7 +1,7 @@
 import 'package:ecommerce/apicalls/product/ApiProduct.dart';
 import 'package:ecommerce/constant/baseurls.dart';
 import 'package:ecommerce/model/Product.dart';
-import 'package:ecommerce/widgets/home/section_title.dart';
+import 'package:ecommerce/screens/home/widgets/section_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -64,6 +64,7 @@ class _SpecialOffersState extends State<SpecialOffers> {
                       imageUrl: imageUrls[index], // Pasa la URL manualmente
                       name: snapshot.data![index].marca,
                       press: () {
+                        // Implementa la navegación si es necesario
                       },
                     );
                   },

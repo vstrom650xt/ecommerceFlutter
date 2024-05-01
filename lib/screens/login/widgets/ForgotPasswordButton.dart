@@ -1,7 +1,9 @@
-import 'package:ecommerce/screens/login/LoginControler.dart';
+import 'package:ecommerce/screens/login/controller/LoginControler.dart';
+import 'package:ecommerce/screens/resetpassword/ResetPassword.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../constant/AppColors.dart';
+import '../../../../constant/AppColors.dart';
+import '../Login.dart';
 
 class ForgotPasswordButton extends StatelessWidget {
   const ForgotPasswordButton({super.key});
@@ -10,7 +12,10 @@ class ForgotPasswordButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-      },
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ResetPassword()),
+        );      },
       child: Text(
         AppLocalizations.of(context)!.forgotPassword,
         style: TextStyle(color: AppColors.PERSIMON),
@@ -18,3 +23,5 @@ class ForgotPasswordButton extends StatelessWidget {
     );
   }
 }
+
+

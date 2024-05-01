@@ -1,9 +1,13 @@
-import 'package:ecommerce/screens/sigin/ControllerSignIn.dart';
+import 'package:ecommerce/screens/home/home_screen.dart';
+import 'package:ecommerce/screens/sigin/controller/ControllerSignIn.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../shared/CustomButton.dart';
-import '../shared/CustomTextForm.dart';
-import '../shared/CustomTitle.dart';
+import '../../../apicalls/auth/ProvidersAuth.dart';
+import '../../../widgets/shared/CustomButton.dart';
+import '../../../widgets/shared/CustomDialog.dart';
+import '../../../widgets/shared/CustomTextForm.dart';
+import '../../../widgets/shared/CustomTitle.dart';
 
 class SignInForm extends StatelessWidget {
   final double height;
@@ -79,7 +83,7 @@ class SignInForm extends StatelessWidget {
                   label: AppLocalizations.of(context)!.putPassword,
                   tooltipText: AppLocalizations.of(context)!
                       .passwordTooltip
-        .replaceAll('\\n', '\n'),
+                      .replaceAll('\\n', '\n'),
                 ),
               ),
             ),
@@ -93,7 +97,7 @@ class SignInForm extends StatelessWidget {
                     obscureText: true,
                     controller: list[4],
                     label: AppLocalizations.of(context)!.repeatPassword,
-                    tooltipText:''),
+                    tooltipText: ''),
               ),
             ),
             SizedBox(height: height * 0.04),
@@ -101,7 +105,42 @@ class SignInForm extends StatelessWidget {
                 listTextEditingController: list,
                 text: 'Crear cuenta',
                 onTap: () async {
-                  await controllerSignIn.sigIn(context, list);
+                  bool successRegister =
+                      await controllerSignIn.sigIn(context, list);
+                  if (successRegister) {
+                    try {
+                      await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: list[1].text, password: list[3].text);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen()),
+                      );
+                    } catch (error) {
+                      print("Error al iniciar sesión: $error");
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const CustomDialog(
+                            textoSuperior: "",
+                            textInferior:
+                                "Ha ocurrido un error al iniciar sesión",
+                          );
+                        },
+                      );
+                    }
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const CustomDialog(
+                          textoSuperior: "",
+                          textInferior:
+                              "Hemos tenido un problema la registrar su usuario",
+                        );
+                      },
+                    );
+                  }
                 })
           ],
         ),
@@ -109,3 +148,5 @@ class SignInForm extends StatelessWidget {
     );
   }
 }
+//pruebaslog@gmail.com
+//

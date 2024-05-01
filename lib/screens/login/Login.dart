@@ -1,5 +1,5 @@
 import 'package:ecommerce/constant/baseurls.dart';
-import 'package:ecommerce/widgets/login/LoginForm.dart';
+import 'package:ecommerce/screens/login/widgets/LoginForm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/responsive/ResponsiveWidget.dart';
@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: ResponsiveWidget.isSmallScreen(context)
+      appBar: ResponsiveWidget.isSmallScreen(context) ||  ResponsiveWidget.isMediumScreen(context)
           ? AppBar(backgroundColor: AppColors.MIDNIGHTGREEN)
           : null,
       body: ResponsiveWidget(
@@ -50,8 +50,8 @@ class LoginScreen extends StatelessWidget {
             ),
           ],
         ),
-        mediumScreen: LoginForm(context: context, height: height, list: list),
-        smallScreen: LoginForm(context: context, height: height, list: list),
+        mediumScreen: LoginForm(context: context, height: height / 2, list: list),
+        smallScreen:LoginForm(context: context, height: height / 2.5, list: list)
       ),
     );
   }

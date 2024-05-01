@@ -3,8 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../apicalls/user/ApiUser.dart';
-import '../../widgets/shared/CustomDialog.dart';
+import '../../../apicalls/user/ApiUser.dart';
+import '../../../widgets/shared/CustomDialog.dart';
+
 class ControllerSignIn {
   /*
   * La contraseña debe tener al menos 8 caracteres
@@ -16,7 +17,8 @@ class ControllerSignIn {
   * */
 
   bool isStrongPassword(String password) {
-    const passwordRegex = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    const passwordRegex =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
     if (!RegExp(passwordRegex).hasMatch(password)) {
       print(
           'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un dígito y un carácter especial.');
@@ -25,7 +27,6 @@ class ControllerSignIn {
     return true;
   }
 
-
   bool arePasswordsEqual(String password, String repeatPassword) {
     if (password.isNotEmpty && repeatPassword.isNotEmpty) {
       return password == repeatPassword;
@@ -33,15 +34,12 @@ class ControllerSignIn {
     return false;
   }
 
-
   bool isValidEmail(String email) {
-    const emailRegex =
-        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    const emailRegex = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
     return RegExp(emailRegex).hasMatch(email);
   }
 
-
-  Future<void> sigIn(BuildContext context,
+  Future<bool> sigIn(BuildContext context,
       List<TextEditingController> listTextEditingController) async {
     bool areValuesValid = validateValues(listTextEditingController);
     if (!areValuesValid) {
@@ -54,33 +52,27 @@ class ControllerSignIn {
           );
         },
       );
+      return false;
     } else {
       ApiUser apiUser = ApiUser();
-      bool saved =
-      await apiUser.saveUser(listTextEditingController, context);
+      bool saved = await apiUser.saveUser(listTextEditingController, context);
       if (saved) {
-        createUserAuthFirebase(listTextEditingController[1].text,listTextEditingController[3].text);
+        createUserAuthFirebase(listTextEditingController[1].text,
+            listTextEditingController[3].text);
         sendEmailVerification();
-        while(await isEmailVerified()){
-            const CustomDialog(
+        while (await isEmailVerified()) {
+          const CustomDialog(
             textoSuperior: "",
-            textInferior: "esperando a q verifiqes email",
+            textInferior: "esperando a que verifiqes email",
           );
-
         }
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return const CustomDialog(
-              textoSuperior: "",
-              textInferior: "dentro",
-            );
-          },
-        );
+
+        return true;
       } else {
         // for (var controller in listTextEditingController) {
         //   controller.clear();
         // }
+        return false;
       }
     }
   }
@@ -118,14 +110,14 @@ class ControllerSignIn {
     }
   }
 
-  Future<void> createUserAuthFirebase(String email,String password) async {
+  Future<void> createUserAuthFirebase(String email, String password) async {
     try {
       // Intentamos crear un usuario con el correo electrónico dado.
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
-        password: password, // Se necesita una contraseña, pero no la usaremos realmente.
+        password:
+            password, // Se necesita una contraseña, pero no la usaremos realmente.
       );
-
     } catch (error) {
       // Si hay un error, verificamos si es debido a que el correo electrónico ya está registrado.
       if (error is FirebaseAuthException) {
@@ -133,15 +125,17 @@ class ControllerSignIn {
           // El correo electrónico ya está registrado.
         }
       }
-      rethrow;    }
+      rethrow;
+    }
   }
 
-  Future<bool> isEmailRegistered(String email,String password) async {
+  Future<bool> isEmailRegistered(String email, String password) async {
     try {
       // Intentamos crear un usuario con el correo electrónico dado.
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
-        password: password, // Se necesita una contraseña, pero no la usaremos realmente.
+        password:
+            password, // Se necesita una contraseña, pero no la usaremos realmente.
       );
 
       // Si la creación de usuario es exitosa, significa que el correo electrónico no está registrado.
@@ -163,8 +157,10 @@ class ControllerSignIn {
     try {
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        await user.reload(); // Actualizamos los datos del usuario para asegurarnos de obtener la información más reciente.
-        user = FirebaseAuth.instance.currentUser; // Volvemos a obtener el objeto de usuario actualizado.
+        await user
+            .reload(); // Actualizamos los datos del usuario para asegurarnos de obtener la información más reciente.
+        user = FirebaseAuth.instance
+            .currentUser; // Volvemos a obtener el objeto de usuario actualizado.
 
         return user!.emailVerified;
       } else {
@@ -177,6 +173,4 @@ class ControllerSignIn {
       return false;
     }
   }
-
-
 }

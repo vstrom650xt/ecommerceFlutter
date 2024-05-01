@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../constant/AppColors.dart';
-import '../../screens/sigin/ControllerSignIn.dart';
+import '../../screens/sigin/controller/ControllerSignIn.dart';
 
 class CustomButton extends StatelessWidget {
   final List<TextEditingController> listTextEditingController;
