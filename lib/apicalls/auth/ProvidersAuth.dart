@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart'; // Add this import
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
-import '../../widgets/shared/CustomDialog.dart';
 
 const List<String> scopes = <String>[
   'email',
@@ -11,7 +10,9 @@ const List<String> scopes = <String>[
 
 class Auth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
   User? get currentUser => _auth.currentUser;
+
   Stream<User?> get authStateChange => _auth.authStateChanges();
 
   static Future<User?> signInWithEmailAndPassword({
@@ -47,7 +48,7 @@ class Auth {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
+          await googleUser?.authentication;
 
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
@@ -71,14 +72,17 @@ class Auth {
         return null;
       }
 
-      final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
-      return await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+      return await FirebaseAuth.instance
+          .signInWithCredential(facebookAuthCredential);
     } catch (e) {
       print('Error signing in with Facebook: $e');
       return null;
     }
   }
+
   Future<void> signOut() async {
     await _auth.signOut();
   }
@@ -92,15 +96,14 @@ class Auth {
     }
   }
 
-
   static void sendPasswordResetEmail(String email) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
 
-      print('Se ha enviado un enlace de restablecimiento de contraseña a $email');
+      print(
+          'Se ha enviado un enlace de restablecimiento de contraseña a $email');
     } catch (e) {
       print('Error al enviar el enlace de restablecimiento de contraseña: $e');
     }
   }
-
 }

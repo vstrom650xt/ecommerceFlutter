@@ -18,5 +18,7 @@
     "email": "Email",
     "address": "Address",
     "password": "Password",
-    "passwordTooltip": "* The password must be at least 8 characters long \n* At least one uppercase letter\n* At least one lowercase letter\n* At least one digit\n* At least one special character (e.g. !@#%^&*)"
+    "passwordTooltip": "* The password must be at least 8 characters long \n* At least one uppercase letter\n* At least one lowercase letter\n* At least one digit\n* At least one special character (e.g. !@#%^&*)",
+    "profile": "Profile"
+
 }

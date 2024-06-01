@@ -1,7 +1,8 @@
 import 'package:ecommerce/apicalls/category/ApiCategory.dart';
 import 'package:ecommerce/model/Category.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../product/products_screen.dart';
 
 class Categories extends StatefulWidget {
   const Categories({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class _CategoriesState extends State<Categories> {
         future: _categoriesFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else if (snapshot.hasData) {
@@ -36,19 +37,26 @@ class _CategoriesState extends State<Categories> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: List.generate(
-                  snapshot.data!.length,
-                      (index) => CategoryCard(
-                    imageUrl: snapshot.data![index].url,
-                    text: snapshot.data![index].name,
-                    press: () {},
-                  ),
-                ),
+                children: [
+                  for (var category in snapshot.data!)
+                    CategoryCard(
+                      imageUrl: category.url,
+                      text: category.name,
+                      press: () {
+                        // Navegar a la pantalla de productos con la categoría seleccionada
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductsScreen(category: category),
+                          ),
+                        );
+                      },
+                    ),
+                ],
               ),
             );
           } else {
-            // Muestra un mensaje predeterminado si no hay datos
-            return Text('No hay categorías disponibles');
+            return const Text('No hay categorías disponibles');
           }
         },
       ),
@@ -65,7 +73,7 @@ class CategoryCard extends StatelessWidget {
   }) : super(key: key);
 
   final String imageUrl, text;
-  final GestureTapCallback press;
+  final VoidCallback press;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +82,7 @@ class CategoryCard extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left:10 ,right: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Container(
               padding: const EdgeInsets.all(16),
               height: 100,
@@ -88,11 +96,11 @@ class CategoryCard extends StatelessWidget {
                 imageUrl,
                 fit: BoxFit.fill,
               )
-                  : Icon(Icons.error),
+                  : const Icon(Icons.error),
             ),
           ),
           const SizedBox(height: 4),
-          Text(text, textAlign: TextAlign.center)
+          Text(text, textAlign: TextAlign.center),
         ],
       ),
     );

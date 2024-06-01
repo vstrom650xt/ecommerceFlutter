@@ -1,5 +1,6 @@
+import 'package:ecommerce/screens/home/widgets/footer.dart';
 import 'package:ecommerce/screens/home/widgets/popular_product.dart';
-import 'package:ecommerce/screens/home/widgets/special_offers.dart';
+import 'package:ecommerce/screens/home/widgets/Brands.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/categories.dart';
@@ -45,6 +46,7 @@ class LargeScreenContent extends StatelessWidget {
           SizedBox(height: 20),
           PopularProducts(),
           SizedBox(height: 20),
+          Footer()
         ],
       ),
     );
@@ -67,6 +69,7 @@ class MediumScreenContent extends StatelessWidget {
           SizedBox(height: 20),
           PopularProducts(),
           SizedBox(height: 20),
+          Footer()
         ],
       ),
     );
@@ -85,12 +88,13 @@ class SmallScreenContent extends StatelessWidget {
       child: Column(
         children: [
           HomeHeader(),
-          DiscountBanner(),
           Categories(),
+          DiscountBanner(),
           SpecialOffers(),
           SizedBox(height: 40),
           PopularProducts(),
           SizedBox(height: 20),
+          Footer()
         ],
       ),
     );

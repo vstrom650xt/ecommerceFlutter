@@ -32,14 +32,13 @@ class ApiProduct {
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
 
+    //  print(data);
       List<Product> mostSoldProducts = [];
-
       for (Map<String, dynamic> productData in data) {
-        Product product = Product.fromJson(productData);
-        mostSoldProducts.add(product);
-      }
-      print(mostSoldProducts);
+          Product product = Product.fromJson(productData);
+          mostSoldProducts.add(product);
 
+      }
       return mostSoldProducts;
     } else {
       throw Exception('Failed to load most sold products');
@@ -47,7 +46,57 @@ class ApiProduct {
   }
 
 
+  Future<List<Product>> allProducts() async {
+    final response = await http.get(Uri.parse(BaseUrls.BASEURLAPI + 'products/all'));
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body);
 
+      List<Product> mostSoldProducts = [];
+      for (Map<String, dynamic> productData in data) {
+        Product product = Product.fromJson(productData);
+        mostSoldProducts.add(product);
+      }
+      return mostSoldProducts;
+    } else {
+      throw Exception('Failed to load most sold products');
+    }
+  }
+
+  Future<List<Product>> fetchProductsByCategory(String categoryId) async {
+    final response = await http.get(Uri.parse(BaseUrls.BASEURLAPI + 'products/getProductByCategory/$categoryId'));
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body);
+
+      List<Product> products = [];
+
+      for (Map<String, dynamic> productData in data) {
+        Product product = Product.fromJson(productData);
+        products.add(product);
+      }
+
+      return products;
+    } else {
+      throw Exception('Failed to load products by category');
+    }
+  }
+
+  Future<List<Product>> fetchProductsByBrand(String brand) async {
+    final response = await http.get(Uri.parse(BaseUrls.BASEURLAPI + 'products/getProductByBrand/$brand'));
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body);
+
+      List<Product> products = [];
+
+      for (Map<String, dynamic> productData in data) {
+        Product product = Product.fromJson(productData);
+        products.add(product);
+      }
+
+      return products;
+    } else {
+      throw Exception('Failed to load products by brand');
+    }
+  }
 
 
 

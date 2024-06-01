@@ -1,21 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../apicalls/product/ProductProvider.dart';
+import '../../../constant/AppColors.dart';
 
+class SearchField extends StatefulWidget {
+  const SearchField({Key? key}) : super(key: key);
 
+  @override
+  State<SearchField> createState() => _SearchFieldState();
+}
 
-class SearchField extends StatelessWidget {
-  const SearchField({
-    Key? key,
-  }) : super(key: key);
+class _SearchFieldState extends State<SearchField> {
+  final _searchController = TextEditingController();
+
+  void _performSearch(String query) {
+    // Call the search function from the provider
+    context.read<ProductProvider>().searchProducts(query);
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
       child: TextFormField(
-        onChanged: (value) {},
+        controller: _searchController,
+        onChanged: (value) {
+          // Perform search on text change
+          _performSearch(value);
+        },
         decoration: const InputDecoration(
           filled: true,
-          contentPadding:
-              EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          fillColor: AppColors.ALABASTER,
+          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           border: searchOutlineInputBorder,
           focusedBorder: searchOutlineInputBorder,
           enabledBorder: searchOutlineInputBorder,

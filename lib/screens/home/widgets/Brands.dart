@@ -4,6 +4,10 @@ import 'package:ecommerce/model/Product.dart';
 import 'package:ecommerce/screens/home/widgets/section_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+
+import '../../product/product_details_screen.dart';
+import '../../product/products_screen.dart';
 
 class SpecialOffers extends StatefulWidget {
   const SpecialOffers({
@@ -15,8 +19,7 @@ class SpecialOffers extends StatefulWidget {
 }
 
 class _SpecialOffersState extends State<SpecialOffers> {
-  late Future<List<Product>>
-      _productBrench;
+  late Future<List<Product>> _productBrench;
 
   @override
   void initState() {
@@ -32,16 +35,14 @@ class _SpecialOffersState extends State<SpecialOffers> {
       BaseUrls.IMGURLS + '/marcas/Razer.png',
       BaseUrls.IMGURLS + '/marcas/Tempest.png',
       BaseUrls.IMGURLS + '/marcas/hp.png',
-
     ];
 
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: SectionTitle(
-            title: "Brenchs",
-            press: () {},
+            title: "Marcas",
           ),
         ),
         SizedBox(
@@ -50,7 +51,7 @@ class _SpecialOffersState extends State<SpecialOffers> {
             future: _productBrench,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (snapshot.hasError) {
@@ -58,19 +59,25 @@ class _SpecialOffersState extends State<SpecialOffers> {
               } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 5, ////////////////////////////////numero items
+                  itemCount: snapshot.data!.length, // Usar la longitud de la lista de productos
                   itemBuilder: (context, index) {
                     return _buildSpecialOffer(
                       imageUrl: imageUrls[index], // Pasa la URL manualmente
                       name: snapshot.data![index].marca,
                       press: () {
-                        // Implementa la navegación si es necesario
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductsScreen(brand: snapshot.data![index].marca, category: null,),
+                          ),
+                        );
                       },
+
                     );
                   },
                 );
               } else {
-                return Center(
+                return const Center(
                   child: Text('No special offers available'),
                 );
               }
@@ -84,7 +91,6 @@ class _SpecialOffersState extends State<SpecialOffers> {
   Widget _buildSpecialOffer({
     required String imageUrl,
     required String name,
-    //required int numOfBrands,
     required GestureTapCallback press,
   }) {
     return Padding(
@@ -140,12 +146,6 @@ class _SpecialOffersState extends State<SpecialOffers> {
                             ),
                           ),
                         ),
-                        // Text(
-                        //   '$numOfBrands Brands',
-                        //   style: const TextStyle(
-                        //     color: Colors.white,
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),

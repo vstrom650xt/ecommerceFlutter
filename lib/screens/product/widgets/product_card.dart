@@ -4,8 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../model/Product.dart';
 
-
-
 class ProductCard extends StatelessWidget {
   const ProductCard({
     Key? key,
@@ -30,13 +28,19 @@ class ProductCard extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 1.02,
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: AppColors.PERSIMON.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.PERSIMON.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Image.network(
+                    product.url,
+                    fit: BoxFit.cover,
+                  ),
+                  //   child: Image.asset(product.images[0]),
                 ),
-             //   child: Image.asset(product.images[0]),
               ),
             ),
             const SizedBox(height: 8),
@@ -49,34 +53,11 @@ class ProductCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "\$${product.precio}",
+                  "€${product.precio}",
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.ALABASTER,
-                  ),
-                ),
-                InkWell(
-                  borderRadius: BorderRadius.circular(50),
-                  onTap: () {},
-                  child: Container(
-                    padding: const EdgeInsets.all(6),
-                    height: 24,
-                    width: 24,
-                    decoration: BoxDecoration(
-                      color: product.masVendido
-                          ? AppColors.PERSIMON.withOpacity(0.15)
-                          : AppColors.PERSIMON.withOpacity(0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: SvgPicture.asset(
-                      "assets/icons/Heart Icon_2.svg",
-                      colorFilter: ColorFilter.mode(
-                          product.masVendido
-                              ? const Color(0xFFFF4848)
-                              : const Color(0xFFDBDEE4),
-                          BlendMode.srcIn),
-                    ),
+                    color: AppColors.PERSIMON,
                   ),
                 ),
               ],

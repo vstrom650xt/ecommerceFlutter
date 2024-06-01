@@ -5,7 +5,7 @@ class IconBtnWithCounter extends StatelessWidget {
   const IconBtnWithCounter({
     Key? key,
     required this.icon,
-    this.numOfitem = 0,
+    required this.numOfitem,
     required this.press,
   }) : super(key: key);
 

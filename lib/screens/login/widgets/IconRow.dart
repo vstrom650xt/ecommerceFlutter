@@ -17,7 +17,7 @@ class IconRow extends StatelessWidget {
         CupertinoButton(
           child: Image.network(
             '${BaseUrls.IMGURLS}iconos/google.png',
-            height: height * 0.07,
+            height: height * 0.05,
           ),
           onPressed: () async {
             // Sign in with Google
@@ -34,17 +34,7 @@ class IconRow extends StatelessWidget {
             }
           },
         ),
-        const SizedBox(),
-        CupertinoButton(
-          child: Icon(
-            Icons.facebook,
-            color: Colors.blue,
-            size: height * 0.08,
-          ),
-          onPressed: () {
-            Auth.signInWithFacebook();
-          },
-        )
+
       ],
     );
   }

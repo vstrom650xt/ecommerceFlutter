@@ -1,5 +1,4 @@
 class Product {
-  String id;
   String nombre;
   String url;
   double precio;
@@ -8,7 +7,6 @@ class Product {
   String marca;
 
   Product({
-    required this.id,
     required this.nombre,
     required this.url,
     required this.precio,
@@ -19,7 +17,7 @@ class Product {
 
   Product.withMarca({
     required this.marca,
-  })   : id = '',
+  })   :
         nombre = '',
         url = '',
         precio = 0.0,
@@ -28,9 +26,8 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'],
       nombre: json['nombre'],
-      url: json['imageUrl'],
+      url: json['url'],
       precio: json['precio'],
       descripcion: json['descripcion'],
       masVendido: json['masVendido'],
@@ -40,7 +37,6 @@ class Product {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'nombre': nombre,
       'imageUrl': url,
       'precio': precio,
@@ -49,4 +45,11 @@ class Product {
       'marca': marca,
     };
   }
+
+  @override
+  String toString() {
+    return 'Product(nombre: $nombre, precio: $precio)';
+  }
+
+
 }
