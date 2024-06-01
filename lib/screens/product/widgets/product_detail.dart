@@ -116,9 +116,12 @@ class _ProductDetailsState extends State<ProductDetails> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  for (int i = 0; i < _quantity; i++) {
-                    Cart.instance.addToCart(widget.product);
+                  if(_quantity>0){
+                    for (int i = 0; i < _quantity; i++) {
+                      Cart.instance.addToCart(widget.product);
+                    }
                   }
+
                   print(Cart.instance.toString());
                   // Lógica para añadir al carrito aquí
                 },

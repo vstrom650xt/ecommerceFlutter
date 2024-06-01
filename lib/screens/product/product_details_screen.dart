@@ -1,3 +1,4 @@
+import 'package:ecommerce/constant/AppColors.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/screens/home/widgets/home_header.dart';
 import 'package:ecommerce/screens/product/widgets/Banner_product_details.dart';
@@ -8,14 +9,14 @@ import 'package:ecommerce/responsive/ResponsiveWidget.dart';
 class ProductDetailsScreen extends StatelessWidget {
   final Product product;
 
-  const ProductDetailsScreen({Key? key, required this.product})
-      : super(key: key);
+  const ProductDetailsScreen({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const HomeHeader(),
+        backgroundColor: AppColors.WHITE,
       ),
       body: ResponsiveWidget(
         largeScreen: Row(

@@ -1,15 +1,13 @@
-import 'package:ecommerce/screens/cart/components/check_out_card.dart';
 import 'package:flutter/material.dart';
 import '../../../constant/AppColors.dart';
-import '../../../model/Cart.dart';
 import '../../../model/Product.dart';
 
 class CartCard extends StatelessWidget {
   const CartCard({
-    Key? key,
+    super.key,
     required this.product,
     required this.quantity,
-  }) : super(key: key);
+  });
 
   final Product product;
   final int quantity;
@@ -48,7 +46,7 @@ class CartCard extends StatelessWidget {
               const SizedBox(height: 8),
               Text.rich(
                 TextSpan(
-                  text: "\$${product.precio}",
+                  text: "${product.precio}€",
                   style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     color: AppColors.PERSIMON,
@@ -56,15 +54,15 @@ class CartCard extends StatelessWidget {
                   children: [
                     TextSpan(
                       text: " x $quantity",
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 8),
               Text(
-                "Subtotal: \$${subtotal.toStringAsFixed(2)}",
-                style: TextStyle(
+                "Subtotal: ${subtotal.toStringAsFixed(2)}€",
+                style: const TextStyle(
                   color: AppColors.PERSIMON,
                   fontWeight: FontWeight.bold,
                 ),

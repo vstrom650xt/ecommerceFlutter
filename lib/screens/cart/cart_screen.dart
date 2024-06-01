@@ -1,7 +1,10 @@
+import 'package:ecommerce/screens/home/widgets/home_header.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/model/Cart.dart';
+import '../../constant/AppColors.dart';
 import 'components/cart_card.dart'; // Importa el CartCard
 import 'components/check_out_card.dart'; // Importa la pantalla de pago
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -11,6 +14,24 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  bool _isLoggedIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user != null) {
+        setState(() {
+          _isLoggedIn = true;
+        });
+      } else {
+        setState(() {
+          _isLoggedIn = false;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // Obtén la instancia del carrito
@@ -24,7 +45,8 @@ class _CartScreenState extends State<CartScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tu Carrito"),
+        title: const HomeHeader(),
+        backgroundColor: AppColors.WHITE,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -54,19 +76,28 @@ class _CartScreenState extends State<CartScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CheckoutCard(
-                        totalAmount: totalAmount,
-                        onCheckoutPressed: () {
-                          // Implementa la funcionalidad de pago aquí
-                        },
+                  if (_isLoggedIn) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CheckoutCard(
+                          totalAmount: totalAmount,
+                          onCheckoutPressed: () {
+                            // Implementa la funcionalidad de pago aquí
+                          },
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Debe iniciar sesión para continuar'),
+                      ),
+                    );
+                  }
                 },
-                child: Text('Precio final \$${totalAmount.toStringAsFixed(2)}'), // Aquí se muestra el total a pagar en el botón
+                child: Text(
+                    'Precio final ${totalAmount}€'), // Aquí se muestra el total a pagar en el botón
               ),
             ),
           ],

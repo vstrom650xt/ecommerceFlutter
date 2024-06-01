@@ -17,7 +17,7 @@ class IconRow extends StatelessWidget {
         CupertinoButton(
           child: Image.network(
             '${BaseUrls.IMGURLS}iconos/google.png',
-            height: height * 0.05,
+            height: height * 0.15,
           ),
           onPressed: () async {
             // Sign in with Google

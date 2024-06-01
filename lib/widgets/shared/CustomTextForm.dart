@@ -10,13 +10,14 @@ class CustomTextForm extends StatelessWidget {
   final String tooltipText;
 
   const CustomTextForm({
-    Key? key,
+    super.key,
     required this.text,
     required this.iconData,
     required this.obscureText,
     required this.controller,
-    required this.label, required this.tooltipText,
-  }) : super(key: key);
+    required this.label,
+    required this.tooltipText,
+  });
 
   @override
   Widget build(BuildContext context) {

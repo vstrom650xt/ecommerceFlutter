@@ -4,6 +4,7 @@ import 'package:ecommerce/widgets/shared/CustomButton.dart';
 import 'package:ecommerce/widgets/shared/CustomTextForm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../widgets/shared/CustomTitle.dart';
@@ -13,11 +14,10 @@ class ResetPasswordForm extends StatelessWidget {
 
   final TextEditingController _emailController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.all(8),
       child: Container(
         width: 500,
         height: 300,
@@ -41,27 +41,34 @@ class ResetPasswordForm extends StatelessWidget {
                 CustomTitle(
                   text: AppLocalizations.of(context)!.forgotPassword,
                 ),
-                CustomTextForm(
-                  text: '',
-                  iconData: Icons.email,
-                  obscureText: false,
-                  controller: _emailController,
-                  label: AppLocalizations.of(context)!.putEmail,
-                  tooltipText: '',
+                const SizedBox(height: 20),
+                Center(
+                  child: CustomTextForm(
+                    text: '',
+                    iconData: Icons.email,
+                    obscureText: false,
+                    controller: _emailController,
+                    label: AppLocalizations.of(context)!.putEmail,
+                    tooltipText: '',
+                  ),
                 ),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    foregroundColor: AppColors.WHITE,
                     elevation: 0,
                     backgroundColor: AppColors.PERSIMON,
-                    textStyle: const TextStyle(color: Colors.white),
                   ),
                   onPressed: () {
-                    // Obtener el texto del campo de texto
                     String email = _emailController.text;
-                    // Llamar a la función para enviar el correo electrónico de restablecimiento de contraseña
                     Auth.sendPasswordResetEmail(email);
                   },
-                  child: const Text("Enviar correo"),
+                  child: const Text(
+                    "Enviar correo",
+                    style: TextStyle(
+                        color: AppColors
+                            .WHITE), // Establece el color del texto del botón
+                  ),
                 ),
               ],
             ),
@@ -70,6 +77,4 @@ class ResetPasswordForm extends StatelessWidget {
       ),
     );
   }
-
-
 }

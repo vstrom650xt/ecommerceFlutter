@@ -6,10 +6,11 @@ import 'package:flutter/widgets.dart';
 import '../../constant/AppColors.dart';
 
 import 'widgets/ResetPasswordForm.dart';
-import '../../widgets/shared/CustomCircleImage.dart';
 
 class ResetPassword extends StatelessWidget {
-  const ResetPassword({Key? key, }) : super(key: key);
+  const ResetPassword({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +31,8 @@ class ResetPassword extends StatelessWidget {
               height: height,
             ),
             Center(
-              child:  ResetPasswordForm(),
+              child: ResetPasswordForm(),
             ),
-
-
           ],
         ),
         // mediumScreen: ,

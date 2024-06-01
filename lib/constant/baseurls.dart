@@ -1,5 +1,5 @@
 class BaseUrls{
-  static const String BASEURLAPI = 'http://127.0.0.1:8080/api/';
+  static const String BASEURLAPI = 'http://192.168.1.22:8080/api/';
   static const String IMGURLS = 'https://raw.githubusercontent.com/vstrom650xt/imagenesFlutter/main/';
 
 }

@@ -42,11 +42,6 @@ class DiscountBanner extends StatelessWidget {
             ),
           ),
 
-          // Image.network(
-          //   '${BaseUrls.IMGURLS}corporativa/cascos.jpg',
-          //   width: 150,
-          //   height: 80,
-          //   fit: BoxFit.cover,
           // ),
         ],
       ),

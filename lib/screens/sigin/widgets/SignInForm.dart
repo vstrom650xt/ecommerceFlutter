@@ -1,9 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:ecommerce/screens/home/home_screen.dart';
 import 'package:ecommerce/screens/sigin/controller/ControllerSignIn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../apicalls/auth/ProvidersAuth.dart';
 import '../../../widgets/shared/CustomButton.dart';
@@ -11,29 +9,50 @@ import '../../../widgets/shared/CustomDialog.dart';
 import '../../../widgets/shared/CustomTextForm.dart';
 import '../../../widgets/shared/CustomTitle.dart';
 
-class SignInForm extends StatelessWidget {
+class SignInForm extends StatefulWidget {
   final double height;
   final List<TextEditingController> list;
 
   const SignInForm({
-    super.key,
+    Key? key,
     required this.height,
     required this.list,
-  });
+  }) : super(key: key);
+
+  @override
+  _SignInFormState createState() => _SignInFormState();
+}
+
+class _SignInFormState extends State<SignInForm> {
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _addressController;
+  late TextEditingController _passwordController;
+  late TextEditingController _repeatPasswordController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = widget.list[0];
+    _emailController = widget.list[1];
+    _addressController = widget.list[2];
+    _passwordController = widget.list[3];
+    _repeatPasswordController = widget.list[4];
+  }
 
   @override
   Widget build(BuildContext context) {
     ControllerSignIn controllerSignIn = ControllerSignIn();
     return Column(
       children: [
-        SizedBox(height: height * 0.25),
+        SizedBox(height: widget.height * 0.25),
         CustomTitle(text: AppLocalizations.of(context)!.createAccount),
-        SizedBox(height: height * 0.015),
+        SizedBox(height: widget.height * 0.015),
         Expanded(
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: height * 0.015),
+                SizedBox(height: widget.height * 0.015),
                 Center(
                   child: SizedBox(
                     width: 300,
@@ -41,13 +60,13 @@ class SignInForm extends StatelessWidget {
                       text: '',
                       iconData: Icons.abc,
                       obscureText: false,
-                      controller: list[0],
+                      controller: _nameController,
                       label: AppLocalizations.of(context)!.putName,
                       tooltipText: '',
                     ),
                   ),
                 ),
-                SizedBox(height: height * 0.015),
+                SizedBox(height: widget.height * 0.015),
                 Center(
                   child: SizedBox(
                     width: 300,
@@ -55,13 +74,13 @@ class SignInForm extends StatelessWidget {
                       text: '',
                       iconData: Icons.email,
                       obscureText: false,
-                      controller: list[1],
+                      controller: _emailController,
                       label: AppLocalizations.of(context)!.putEmail,
                       tooltipText: '',
                     ),
                   ),
                 ),
-                SizedBox(height: height * 0.015),
+                SizedBox(height: widget.height * 0.015),
                 Center(
                   child: SizedBox(
                     width: 300,
@@ -69,13 +88,13 @@ class SignInForm extends StatelessWidget {
                       text: '',
                       iconData: Icons.house,
                       obscureText: false,
-                      controller: list[2],
+                      controller: _addressController,
                       label: AppLocalizations.of(context)!.putAddress,
                       tooltipText: '',
                     ),
                   ),
                 ),
-                SizedBox(height: height * 0.015),
+                SizedBox(height: widget.height * 0.015),
                 Center(
                   child: SizedBox(
                     width: 300,
@@ -83,7 +102,7 @@ class SignInForm extends StatelessWidget {
                       text: '',
                       iconData: Icons.password,
                       obscureText: true,
-                      controller: list[3],
+                      controller: _passwordController,
                       label: AppLocalizations.of(context)!.putPassword,
                       tooltipText: AppLocalizations.of(context)!
                           .passwordTooltip
@@ -91,7 +110,7 @@ class SignInForm extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: height * 0.015),
+                SizedBox(height: widget.height * 0.015),
                 Center(
                   child: SizedBox(
                     width: 300,
@@ -99,25 +118,26 @@ class SignInForm extends StatelessWidget {
                         text: '',
                         iconData: Icons.repeat,
                         obscureText: true,
-                        controller: list[4],
+                        controller: _repeatPasswordController,
                         label: AppLocalizations.of(context)!.repeatPassword,
                         tooltipText: ''),
                   ),
                 ),
-                SizedBox(height: height * 0.04),
+                SizedBox(height: widget.height * 0.04),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomButton(
-                      listTextEditingController: list,
+                      listTextEditingController: widget.list,
                       text: 'Crear cuenta',
                       onTap: () async {
                         bool successRegister =
-                            await controllerSignIn.sigIn(context, list);
+                        await controllerSignIn.sigIn(context, widget.list);
                         if (successRegister) {
                           try {
                             await FirebaseAuth.instance
                                 .signInWithEmailAndPassword(
-                                    email: list[1].text, password: list[3].text);
+                                email: _emailController.text,
+                                password: _passwordController.text);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -131,7 +151,7 @@ class SignInForm extends StatelessWidget {
                                 return const CustomDialog(
                                   textoSuperior: "",
                                   textInferior:
-                                      "Ha ocurrido un error al iniciar sesión",
+                                  "Ha ocurrido un error al iniciar sesión",
                                 );
                               },
                             );
@@ -143,7 +163,7 @@ class SignInForm extends StatelessWidget {
                               return const CustomDialog(
                                 textoSuperior: "",
                                 textInferior:
-                                    "Hemos tenido un problema la registrar su usuario",
+                                "Hemos tenido un problema la registrar su usuario",
                               );
                             },
                           );
