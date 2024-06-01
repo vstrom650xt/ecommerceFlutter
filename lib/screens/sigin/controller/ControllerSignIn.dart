@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -43,14 +42,10 @@ class ControllerSignIn {
       List<TextEditingController> listTextEditingController) async {
     bool areValuesValid = validateValues(listTextEditingController);
     if (!areValuesValid) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const CustomDialog(
-            textoSuperior: " Rellene todos los campos",
-            textInferior: "",
-          );
-        },
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Rellene todos los campos'),
+        ),
       );
       return false;
     } else {
@@ -61,9 +56,10 @@ class ControllerSignIn {
             listTextEditingController[3].text);
         sendEmailVerification();
         while (await isEmailVerified()) {
-          const CustomDialog(
-            textoSuperior: "",
-            textInferior: "esperando a que verifiqes email",
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('esperando a que verifiqes email'),
+            ),
           );
         }
 
@@ -76,7 +72,6 @@ class ControllerSignIn {
       }
     }
   }
-
 
   bool validateValues(List<TextEditingController> controllers) {
     for (var controller in controllers) {
@@ -173,7 +168,4 @@ class ControllerSignIn {
       return false;
     }
   }
-
-
-
 }

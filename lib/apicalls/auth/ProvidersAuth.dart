@@ -100,6 +100,7 @@ class Auth {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
 
+
       print(
           'Se ha enviado un enlace de restablecimiento de contraseña a $email');
     } catch (e) {

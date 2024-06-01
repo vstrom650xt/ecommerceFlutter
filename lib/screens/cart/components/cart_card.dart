@@ -61,7 +61,7 @@ class CartCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                "Subtotal: ${subtotal.toStringAsFixed(2)}€",
+                "Total: ${subtotal.toStringAsFixed(2)}€",
                 style: const TextStyle(
                   color: AppColors.PERSIMON,
                   fontWeight: FontWeight.bold,

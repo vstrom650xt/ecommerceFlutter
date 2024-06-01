@@ -145,27 +145,19 @@ class _SignInFormState extends State<SignInForm> {
                             );
                           } catch (error) {
                             print("Error al iniciar sesión: $error");
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const CustomDialog(
-                                  textoSuperior: "",
-                                  textInferior:
-                                  "Ha ocurrido un error al iniciar sesión",
-                                );
-                              },
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    'Ha ocurrido un error al iniciar sesión'),
+                              ),
                             );
                           }
                         } else {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return const CustomDialog(
-                                textoSuperior: "",
-                                textInferior:
-                                "Hemos tenido un problema la registrar su usuario",
-                              );
-                            },
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  'Hemos tenido un problema la registrar su usuario'),
+                            ),
                           );
                         }
                       }),

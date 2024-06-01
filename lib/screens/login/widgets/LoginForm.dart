@@ -1,12 +1,14 @@
 import 'package:ecommerce/screens/home/home_screen.dart';
-import 'package:ecommerce/screens/login/controller/LoginControler.dart';
 import 'package:ecommerce/screens/login/widgets/IconRow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../constant/AppColors.dart';
 import '../../../widgets/shared/CustomButton.dart';
 import '../../../widgets/shared/CustomTextForm.dart';
 import '../../../widgets/shared/CustomTitle.dart';
+import '../../sigin/SignIn.dart';
+import '../controller/LoginControler.dart';
 import 'ForgotPasswordButton.dart';
 
 class LoginForm extends StatefulWidget {
@@ -77,6 +79,18 @@ class _LoginFormState extends State<LoginForm> {
           IconRow(height: widget.height),
           ForgotPasswordButton(),
           SizedBox(height: widget.height * 0.03),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SignIn()),
+              );
+            },
+            child: Text(
+              AppLocalizations.of(context)!.createAccount,
+              style: TextStyle(color: AppColors.PERSIMON),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: CustomButton(
@@ -91,12 +105,7 @@ class _LoginFormState extends State<LoginForm> {
                   await LoginController.signInWithEmailAndPassword(
                       context, email, password);
 
-                  if (signInResult) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
-                    );
-                  } else {
+                  if (!signInResult) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text(
@@ -108,8 +117,7 @@ class _LoginFormState extends State<LoginForm> {
                   print('Error durante el inicio de sesión: $error');
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content:
-                      Text('Error durante el inicio de sesión: $error'),
+                      content: Text('Error durante el inicio de sesión: $error'),
                     ),
                   );
                 }

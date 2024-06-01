@@ -1,4 +1,5 @@
 import 'package:ecommerce/firebase_options.dart';
+import 'package:ecommerce/screens/adminpanel/DashBoardScreen.dart';
 import 'package:ecommerce/screens/home/home_screen.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: const HomeScreen(), // Establece tu pantalla de inicio aquí
+      home: const DashboardScreen(), // Establece tu pantalla de inicio aquí
     );
   }
 }

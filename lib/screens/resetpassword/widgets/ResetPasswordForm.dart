@@ -1,5 +1,6 @@
 import 'package:ecommerce/apicalls/auth/ProvidersAuth.dart';
 import 'package:ecommerce/constant/AppColors.dart';
+import 'package:ecommerce/screens/home/home_screen.dart';
 import 'package:ecommerce/widgets/shared/CustomButton.dart';
 import 'package:ecommerce/widgets/shared/CustomTextForm.dart';
 import 'package:flutter/cupertino.dart';
@@ -62,6 +63,17 @@ class ResetPasswordForm extends StatelessWidget {
                   onPressed: () {
                     String email = _emailController.text;
                     Auth.sendPasswordResetEmail(email);
+
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                            'Se envio un correo electronico pare restablecer su contraseña.'),
+                      ),
+                    );
                   },
                   child: const Text(
                     "Enviar correo",
