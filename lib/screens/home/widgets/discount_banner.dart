@@ -21,10 +21,10 @@ class DiscountBanner extends StatelessWidget {
         color: AppColors.MIDNIGHTGREEN,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Row(
+      child: const Row(
         children: [
 
-          const Expanded(
+          Expanded(
             child: Text.rich(
               TextSpan(
                 style: TextStyle(color: Colors.white),
@@ -42,12 +42,12 @@ class DiscountBanner extends StatelessWidget {
             ),
           ),
 
-          Image.network(
-            '${BaseUrls.IMGURLS}corporativa/cascos.jpg',
-            width: 150,
-            height: 80,
-            fit: BoxFit.cover,
-          ),
+          // Image.network(
+          //   '${BaseUrls.IMGURLS}corporativa/cascos.jpg',
+          //   width: 150,
+          //   height: 80,
+          //   fit: BoxFit.cover,
+          // ),
         ],
       ),
     );

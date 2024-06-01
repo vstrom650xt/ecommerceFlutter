@@ -60,6 +60,7 @@ class ProductCard extends StatelessWidget {
                     color: AppColors.PERSIMON,
                   ),
                 ),
+
               ],
             )
           ],

@@ -1,17 +1,23 @@
+import 'package:ecommerce/screens/cart/components/check_out_card.dart';
 import 'package:flutter/material.dart';
-
+import '../../../constant/AppColors.dart';
 import '../../../model/Cart.dart';
+import '../../../model/Product.dart';
 
 class CartCard extends StatelessWidget {
   const CartCard({
     Key? key,
-    required this.cart,
+    required this.product,
+    required this.quantity,
   }) : super(key: key);
 
-  final Cart cart;
+  final Product product;
+  final int quantity;
 
   @override
   Widget build(BuildContext context) {
+    final double subtotal = product.precio * quantity;
+
     return Row(
       children: [
         SizedBox(
@@ -24,33 +30,50 @@ class CartCard extends StatelessWidget {
                 color: const Color(0xFFF5F6F9),
                 borderRadius: BorderRadius.circular(15),
               ),
+              // Aquí puedes mostrar la imagen del producto si lo tienes en el modelo
+              child: Image.network(product.url),
             ),
           ),
         ),
         const SizedBox(width: 20),
-        // Column(
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   children: [
-        //     Text(
-        //       cart.product.title,
-        //       style: const TextStyle(color: Colors.black, fontSize: 16),
-        //       maxLines: 2,
-        //     ),
-        //     const SizedBox(height: 8),
-        //     Text.rich(
-        //       TextSpan(
-        //         text: "\$${cart.product.price}",
-        //         style: const TextStyle(
-        //             fontWeight: FontWeight.w600, color: Colors.cyan),
-        //         children: [
-        //           TextSpan(
-        //               text: " x${cart.numOfItem}",
-        //               style: Theme.of(context).textTheme.bodyLarge),
-        //         ],
-        //       ),
-        //     )
-        //   ],
-        // )
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                product.nombre,
+                style: const TextStyle(color: Colors.black, fontSize: 16),
+                maxLines: 2,
+              ),
+              const SizedBox(height: 8),
+              Text.rich(
+                TextSpan(
+                  text: "\$${product.precio}",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.PERSIMON,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: " x $quantity",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                "Subtotal: \$${subtotal.toStringAsFixed(2)}",
+                style: TextStyle(
+                  color: AppColors.PERSIMON,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+
+            ],
+          ),
+        ),
       ],
     );
   }
