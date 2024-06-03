@@ -10,7 +10,9 @@ class ApiCategory {
         await http.get(Uri.parse('${BaseUrls.BASEURLAPI}categories/all'));
 
     if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
+       List<dynamic> data = json.decode(utf8.decode(response.bodyBytes));
+
+    //  final List<dynamic> data = json.decode(utf8.decode(response.bodyBytes))['body'];
 
       List<Category> categories =
           data.map((json) => Category.fromJson(json)).toList();
@@ -20,3 +22,5 @@ class ApiCategory {
     }
   }
 }
+
+// final List result = json.decode(utf8.decode(response.bodyBytes))['body'];

@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: const DashboardScreen(), // Establece tu pantalla de inicio aquí
+      home: const HomeScreen(), // Establece tu pantalla de inicio aquí
     );
   }
 }

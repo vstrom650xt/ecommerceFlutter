@@ -10,7 +10,7 @@ class ApiProduct {
     final response =
     await http.get(Uri.parse(BaseUrls.BASEURLAPI + 'products/allBrench'));
     if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
+      final List<dynamic> data = json.decode(utf8.decode(response.bodyBytes));
 
       List<Product> productBrench = [];
 
@@ -30,7 +30,7 @@ class ApiProduct {
   Future<List<Product>> fetchMostSoldProducts() async {
     final response = await http.get(Uri.parse(BaseUrls.BASEURLAPI + 'products/getMostSold'));
     if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
+      final List<dynamic> data = json.decode(utf8.decode(response.bodyBytes));
 
     //  print(data);
       List<Product> mostSoldProducts = [];
@@ -49,7 +49,7 @@ class ApiProduct {
   Future<List<Product>> allProducts() async {
     final response = await http.get(Uri.parse(BaseUrls.BASEURLAPI + 'products/all'));
     if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
+      final List<dynamic> data = json.decode(utf8.decode(response.bodyBytes));
 
       List<Product> mostSoldProducts = [];
       for (Map<String, dynamic> productData in data) {
@@ -65,7 +65,7 @@ class ApiProduct {
   Future<List<Product>> fetchProductsByCategory(String categoryId) async {
     final response = await http.get(Uri.parse(BaseUrls.BASEURLAPI + 'products/getProductByCategory/$categoryId'));
     if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
+      final List<dynamic> data = json.decode(utf8.decode(response.bodyBytes));
 
       List<Product> products = [];
 
@@ -83,7 +83,7 @@ class ApiProduct {
   Future<List<Product>> fetchProductsByBrand(String brand) async {
     final response = await http.get(Uri.parse(BaseUrls.BASEURLAPI + 'products/getProductByBrand/$brand'));
     if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
+      final List<dynamic> data = json.decode(utf8.decode(response.bodyBytes));
 
       List<Product> products = [];
 

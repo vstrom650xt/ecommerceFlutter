@@ -12,7 +12,7 @@ class ProductProvider with ChangeNotifier {
   Future<void> fetchAllProducts() async {
     final response = await http.get(Uri.parse('http://localhost:8080/api/products/all'));
     if (response.statusCode == 200) {
-      List<dynamic> data = jsonDecode(response.body);
+      final List<dynamic> data = json.decode(utf8.decode(response.bodyBytes));
       _products = data.map((json) => Product.fromJson(json)).toList();
       _filteredProducts = _products; // Initially show all products
       notifyListeners();

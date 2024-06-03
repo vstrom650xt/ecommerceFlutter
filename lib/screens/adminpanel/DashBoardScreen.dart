@@ -41,8 +41,8 @@ class AddCategoryCard extends StatelessWidget {
     TextEditingController();
 
     void addCategory() async {
-      String name = categoryNameController.text;
-      String url = categoryUrlController.text;
+      String name = categoryNameController.text.trim();
+      String url = categoryUrlController.text.trim();
 
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('categories').get();
 
@@ -126,12 +126,12 @@ class _AddProductCardState extends State<AddProductCard> {
   @override
   Widget build(BuildContext context) {
     void addProduct() async {
-      String description = productDescriptionController.text;
-      String brand = productBrandController.text;
-      String name = productNameController.text;
-      double price = double.parse(productPriceController.text);
-      String url = productUrlController.text;
-      String category = productCategoryController.text.toLowerCase();
+      String description = productDescriptionController.text.trim();
+      String brand = productBrandController.text.trim();
+      String name = productNameController.text.trim();
+      double price = double.parse(productPriceController.text.trim());
+      String url = productUrlController.text.trim();
+      String category = productCategoryController.text.toLowerCase().trim();
 
       // Obtener el ID autoincremental
       // final QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('productos').get();
@@ -259,6 +259,7 @@ class _DeleteCategoryCardState extends State<DeleteCategoryCard> {
           selectedCategory = ''; // Restablecer la categoría seleccionada después de borrarla
         });
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
+
 
       }
     }
