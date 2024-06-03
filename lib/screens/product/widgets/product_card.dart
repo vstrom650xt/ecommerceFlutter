@@ -1,6 +1,5 @@
 import 'package:ecommerce/constant/AppColors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../model/Product.dart';
 

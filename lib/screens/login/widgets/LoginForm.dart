@@ -113,10 +113,10 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                     );
                   } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomeScreen()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => const HomeScreen()),
+                    // );
                   }
                 } catch (error) {
                   print('Error durante el inicio de sesión: $error');
@@ -129,7 +129,9 @@ class _LoginFormState extends State<LoginForm> {
               },
             ),
           ),
+          SizedBox(height: widget.height * 0.08),
         ],
+
       ),
     );
   }

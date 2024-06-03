@@ -1,3 +1,4 @@
+import 'package:ecommerce/screens/home/home_screen.dart';
 import 'package:ecommerce/screens/home/widgets/home_header.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/model/Cart.dart';
@@ -5,6 +6,7 @@ import '../../constant/AppColors.dart';
 import 'components/cart_card.dart'; // Importa el CartCard
 import 'components/check_out_card.dart'; // Importa la pantalla de pago
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -83,15 +85,21 @@ class _CartScreenState extends State<CartScreen> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_isLoggedIn) {
-                    Navigator.push(
+                    // Borra todos los elementos del carrito
+                    cart.items.clear();
+
+                    // Muestra un SnackBar indicando que el pedido ha terminado
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content:  Text( AppLocalizations.of(context)!.finsihOrder),
+                      ),
+                    );
+
+                    // Redirige al usuario a la pantalla de inicio
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CheckoutCard(
-                          totalAmount: totalAmount,
-                          onCheckoutPressed: () {
-                            // Implementa la funcionalidad de pago aquí
-                          },
-                        ),
+                        builder: (context) => const HomeScreen(),
                       ),
                     );
                   } else {
@@ -102,10 +110,10 @@ class _CartScreenState extends State<CartScreen> {
                     );
                   }
                 },
-                child: Text(
-                    'Precio final ${totalAmount}€'), // Aquí se muestra el total a pagar en el botón
+                child: Text('Precio final ${totalAmount}€'),
               ),
             ),
+
           ],
         ),
       ),

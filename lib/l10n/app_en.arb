@@ -19,6 +19,13 @@
     "address": "Address",
     "password": "Password",
     "passwordTooltip": "* The password must be at least 8 characters long \n* At least one uppercase letter\n* At least one lowercase letter\n* At least one digit\n* At least one special character (e.g. !@#%^&*)",
-    "profile": "Profile"
+    "profile": "Profile",
+    "discover": "Discover our",
+    "oferts": "oferts",
+    "brench": "brenchs",
+    "send": "Envio gratuito en pedidos superiores a 150€.",
+    "returned": "Devoluciones gratuitas y sustitución en 24h.",
+    "deliver": "Recibe tu pedido en 24 horas.",
+    "finsihOrder":"Pedido terminado"
 
 }

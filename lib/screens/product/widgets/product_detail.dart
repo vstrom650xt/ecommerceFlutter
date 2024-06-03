@@ -122,6 +122,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     }
                   }
 
+                  setState(() {
+                  });
                   print(Cart.instance.toString());
                   // Lógica para añadir al carrito aquí
                 },

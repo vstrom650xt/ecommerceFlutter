@@ -14,25 +14,27 @@ class IconRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CupertinoButton(
-          child: Image.network(
-            '${BaseUrls.IMGURLS}iconos/google.png',
-            height: height * 0.15,
+        Container(
+          child: CupertinoButton(
+            child: Image.network(
+              '${BaseUrls.IMGURLS}iconos/google.png',
+              height: height * 0.08,
+            ),
+            onPressed: () async {
+              // Sign in with Google
+              final result = await Auth.signInWithGoogle();
+              if (result != null) {
+                // Sign-in successful, navigate to HomeScreen
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                );
+              } else {
+                // Sign-in failed
+                // Handle the case where sign-in was not successful
+              }
+            },
           ),
-          onPressed: () async {
-            // Sign in with Google
-            final result = await Auth.signInWithGoogle();
-            if (result != null) {
-              // Sign-in successful, navigate to HomeScreen
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
-              );
-            } else {
-              // Sign-in failed
-              // Handle the case where sign-in was not successful
-            }
-          },
         ),
 
       ],

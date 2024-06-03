@@ -4,6 +4,7 @@ import 'package:ecommerce/model/Product.dart';
 import 'package:ecommerce/screens/home/widgets/section_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../product/products_screen.dart';
 
@@ -29,10 +30,10 @@ class _SpecialOffersState extends State<SpecialOffers> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(
+         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: SectionTitle(
-            title: "Marcas",
+            title:AppLocalizations.of(context)!.brench,
           ),
         ),
         SizedBox(

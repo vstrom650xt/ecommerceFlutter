@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ecommerce/constant/AppColors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Footer extends StatelessWidget {
   const Footer({Key? key}) : super(key: key);
@@ -14,19 +15,19 @@ class Footer extends StatelessWidget {
           children: <Widget>[
             FooterItem(
               icon: Icons.delivery_dining_sharp,
-              text: 'Envio gratuito en pedidos superiores a 150€.',
+              text: AppLocalizations.of(context)!.send,
               iconSize: 50,
             ),
             Divider(),
             FooterItem(
               icon: Icons.assignment_return,
-              text: 'Devoluciones gratuitas y sustitución en 24h.',
+              text: AppLocalizations.of(context)!.returned,
               iconSize: 50,
             ),
             Divider(),
             FooterItem(
               icon: Icons.search,
-              text: 'Recibe tu pedido en 24 horas.',
+              text:  AppLocalizations.of(context)!.deliver,
               iconSize: 50,
             ),
           ],

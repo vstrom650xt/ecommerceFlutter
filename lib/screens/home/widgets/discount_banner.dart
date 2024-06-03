@@ -1,7 +1,6 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-
 import '../../../constant/AppColors.dart';
-import '../../../constant/baseurls.dart';
 
 class DiscountBanner extends StatelessWidget {
   const DiscountBanner({
@@ -21,28 +20,29 @@ class DiscountBanner extends StatelessWidget {
         color: AppColors.MIDNIGHTGREEN,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: const Row(
+      child: Row(
         children: [
-
           Expanded(
             child: Text.rich(
               TextSpan(
                 style: TextStyle(color: Colors.white),
                 children: [
-                  TextSpan(text: "A Summer Surprise\n"),
                   TextSpan(
-                    text: "Cashback 20%",
-                    style: TextStyle(
+                    text:  AppLocalizations.of(context)!.discover,
+                    style: const TextStyle(
                       fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "  "+ AppLocalizations.of(context)!.oferts,
+                    style: const TextStyle(
+                      fontSize: 24,
                     ),
                   ),
                 ],
               ),
             ),
           ),
-
-          // ),
         ],
       ),
     );

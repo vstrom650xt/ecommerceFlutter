@@ -1,18 +1,18 @@
 import 'package:ecommerce/constant/AppColors.dart';
 import 'package:flutter/material.dart';
 
+import '../../../model/Cart.dart';
+
 class IconBtnWithCounter extends StatelessWidget {
-  const IconBtnWithCounter({
+   IconBtnWithCounter({
     Key? key,
     required this.icon,
-    required this.numOfitem,
-    required this.press,
+    required this.press, required int numOfitem,
   }) : super(key: key);
 
   final IconData icon;
-  final int numOfitem;
   final GestureTapCallback press;
-
+  final int numOfItems = Cart.instance.getTotalItems();
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -34,7 +34,7 @@ class IconBtnWithCounter extends StatelessWidget {
               color: AppColors.PERSIMON,
             ),
           ),
-          if (numOfitem != 0)
+          if (numOfItems != 0)
             Positioned(
               top: -3,
               right: 0,
@@ -48,7 +48,7 @@ class IconBtnWithCounter extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    "$numOfitem",
+                    "$numOfItems",
                     style: const TextStyle(
                       fontSize: 12,
                       height: 1,

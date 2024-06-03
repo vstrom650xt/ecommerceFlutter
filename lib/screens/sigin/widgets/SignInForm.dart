@@ -3,9 +3,7 @@ import 'package:ecommerce/screens/home/home_screen.dart';
 import 'package:ecommerce/screens/sigin/controller/ControllerSignIn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../apicalls/auth/ProvidersAuth.dart';
 import '../../../widgets/shared/CustomButton.dart';
-import '../../../widgets/shared/CustomDialog.dart';
 import '../../../widgets/shared/CustomTextForm.dart';
 import '../../../widgets/shared/CustomTitle.dart';
 

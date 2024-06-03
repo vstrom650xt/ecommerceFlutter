@@ -253,16 +253,33 @@ class _DeleteCategoryCardState extends State<DeleteCategoryCard> {
 
     void deleteCategory() async {
       if (selectedCategory.isNotEmpty) {
-        await FirebaseFirestore.instance.collection('categories').doc(selectedCategory).delete();
-        // Aquí puedes agregar cualquier lógica adicional después de borrar la categoría
-        setState(() {
-          selectedCategory = ''; // Restablecer la categoría seleccionada después de borrarla
+        final batch = FirebaseFirestore.instance.batch();
+
+        // Eliminar la categoría seleccionada de la colección 'categories'
+        final categoryRef = FirebaseFirestore.instance.collection('categories').doc(selectedCategory);
+        batch.delete(categoryRef);
+
+        // Obtener una referencia a todos los productos con la misma categoría
+        final productsQuery = await FirebaseFirestore.instance.collection('productos').where('categoria', isEqualTo: selectedCategory).get();
+
+        // Eliminar todos los productos con la misma categoría
+        productsQuery.docs.forEach((doc) {
+          batch.delete(doc.reference);
         });
+
+        // Ejecutar la transacción
+        await batch.commit();
+
+        // Restablecer la categoría seleccionada después de borrarla
+        setState(() {
+          selectedCategory = '';
+        });
+
+        // Navegar de vuelta al DashboardScreen
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
-
-
       }
     }
+
 
     return Card(
       elevation: 4,
