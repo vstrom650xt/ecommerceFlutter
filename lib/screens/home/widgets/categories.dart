@@ -41,7 +41,7 @@ class _CategoriesState extends State<Categories> {
                   for (var category in snapshot.data!)
                     CategoryCard(
                       imageUrl: category.url,
-                      text: category.name,
+                      text: category.name.toLowerCase().capitalize(),
                       press: () {
                         // Navegar a la pantalla de productos con la categoría seleccionada
                         Navigator.push(
@@ -63,7 +63,11 @@ class _CategoriesState extends State<Categories> {
     );
   }
 }
-
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1)}";
+  }
+}
 class CategoryCard extends StatelessWidget {
   const CategoryCard({
     Key? key,

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import '../../../constant/AppColors.dart';
 import '../../../model/Product.dart';
-
 class CartCard extends StatelessWidget {
   const CartCard({
-    super.key,
+    Key? key,
     required this.product,
     required this.quantity,
-  });
+    required this.onRemove,
+  }) : super(key: key);
 
   final Product product;
   final int quantity;
+  final VoidCallback onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +69,11 @@ class CartCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-
+              IconButton(
+                onPressed: onRemove,
+                icon: Icon(Icons.delete),
+                color: Colors.red,
+              ),
             ],
           ),
         ),

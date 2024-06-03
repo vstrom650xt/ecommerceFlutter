@@ -67,6 +67,12 @@ class _CartScreenState extends State<CartScreen> {
                   return CartCard(
                     product: product,
                     quantity: quantity,
+                    onRemove: () {
+                      setState(() {
+                        // Lógica para eliminar el artículo del carrito
+                        cart.removeFromCart(product);
+                      });
+                    },
                   );
                 },
               ),
