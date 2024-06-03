@@ -130,33 +130,35 @@ class _SignInFormState extends State<SignInForm> {
                       listTextEditingController: widget.list,
                       text: 'Crear cuenta',
                       onTap: () async {
-                        bool successRegister =
-                        await controllerSignIn.sigIn(context, widget.list);
+                        // Aplicar .trim() a los valores
+                        _nameController.text = _nameController.text.trim();
+                        _emailController.text = _emailController.text.trim();
+                        _addressController.text = _addressController.text.trim();
+                        _passwordController.text = _passwordController.text.trim();
+                        _repeatPasswordController.text = _repeatPasswordController.text.trim();
+
+                        bool successRegister = await controllerSignIn.sigIn(context, widget.list);
                         if (successRegister) {
                           try {
-                            await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
+                            await FirebaseAuth.instance.signInWithEmailAndPassword(
                                 email: _emailController.text,
                                 password: _passwordController.text);
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => const HomeScreen()),
+                              MaterialPageRoute(builder: (context) => const HomeScreen()),
                             );
                           } catch (error) {
                             print("Error al iniciar sesión: $error");
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text(
-                                    'Ha ocurrido un error al iniciar sesión'),
+                                content: Text('Ha ocurrido un error al iniciar sesión'),
                               ),
                             );
                           }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text(
-                                  'Hemos tenido un problema la registrar su usuario'),
+                              content: Text('Hemos tenido un problema la registrar su usuario'),
                             ),
                           );
                         }

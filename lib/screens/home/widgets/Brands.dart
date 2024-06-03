@@ -4,9 +4,7 @@ import 'package:ecommerce/model/Product.dart';
 import 'package:ecommerce/screens/home/widgets/section_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 
-import '../../product/product_details_screen.dart';
 import '../../product/products_screen.dart';
 
 class SpecialOffers extends StatefulWidget {
@@ -29,14 +27,6 @@ class _SpecialOffersState extends State<SpecialOffers> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> imageUrls = [
-      BaseUrls.IMGURLS + '/marcas/Steel.png',
-      BaseUrls.IMGURLS + '/marcas/Forgeon.png',
-      BaseUrls.IMGURLS + '/marcas/Razer.png',
-      BaseUrls.IMGURLS + '/marcas/Tempest.png',
-      BaseUrls.IMGURLS + '/marcas/hp.png',
-    ];
-
     return Column(
       children: [
         const Padding(
@@ -59,20 +49,36 @@ class _SpecialOffersState extends State<SpecialOffers> {
               } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: snapshot.data!.length, // Usar la longitud de la lista de productos
+                  itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
-                    return _buildSpecialOffer(
-                      imageUrl: imageUrls[index], // Pasa la URL manualmente
-                      name: snapshot.data![index].marca,
-                      press: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProductsScreen(brand: snapshot.data![index].marca, category: null,),
-                          ),
-                        );
-                      },
+                    return FutureBuilder<String>(
+                      future: _fetchImageUrlForBrand(snapshot.data![index].marca.toLowerCase()),
+                      builder: (context, imageSnapshot) {
+                        if (imageSnapshot.connectionState == ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (imageSnapshot.hasError) {
+                          return Text('Error: ${imageSnapshot.error}');
+                        } else {
+                          String name = snapshot.data![index].marca;
+                          String displayName = _capitalizeFirstLetter(name);
 
+                          return _buildSpecialOffer(
+                            imageUrl: imageSnapshot.data ?? '',
+                            name: displayName,
+                            press: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductsScreen(
+                                    brand: snapshot.data![index].marca,
+                                    category: null,
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        }
+                      },
                     );
                   },
                 );
@@ -86,6 +92,15 @@ class _SpecialOffersState extends State<SpecialOffers> {
         ),
       ],
     );
+  }
+
+  Future<String> _fetchImageUrlForBrand(String brand) async {
+    return BaseUrls.IMGURLS + '/marcas/$brand.png';
+  }
+
+  String _capitalizeFirstLetter(String text) {
+    if (text.isEmpty) return text;
+    return text[0].toUpperCase() + text.substring(1).toLowerCase();
   }
 
   Widget _buildSpecialOffer({

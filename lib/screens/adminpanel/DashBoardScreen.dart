@@ -1,14 +1,16 @@
+import 'package:ecommerce/screens/adminpanel/widgets/CategoryDropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard'),
+        title: const Text('Admin Panel'),
       ),
       body: const SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
@@ -26,7 +28,7 @@ class DashboardScreen extends StatelessWidget {
 }
 
 class AddCategoryCard extends StatelessWidget {
-  const AddCategoryCard({Key? key}) : super(key: key);
+  const AddCategoryCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +41,8 @@ class AddCategoryCard extends StatelessWidget {
       String name = categoryNameController.text;
       String url = categoryUrlController.text;
 
-      // Obtener el último número de categoría utilizado
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('categories').get();
 
-      // Obtener el número de la nueva categoría
       int newCategoryId = 1; // Valor predeterminado si no hay categorías existentes
       if (querySnapshot.docs.isNotEmpty) {
         int maxCategoryNumber = 0;
@@ -61,12 +61,13 @@ class AddCategoryCard extends StatelessWidget {
 
       // Agregar la nueva categoría con el nuevo nombre de documento
       await FirebaseFirestore.instance.collection('categories').doc(newCategoryDocumentName).set({
-        'nombre': name,
+        'name': name,
         'url': url,
       });
 
       categoryNameController.clear();
       categoryUrlController.clear();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
     }
 
 
@@ -103,45 +104,39 @@ class AddCategoryCard extends StatelessWidget {
   }
 }
 
-class AddProductCard extends StatelessWidget {
-  const AddProductCard({Key? key}) : super(key: key);
+class AddProductCard extends StatefulWidget {
+  const AddProductCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController productNameController =
-    TextEditingController();
-    final TextEditingController productDescriptionController =
-    TextEditingController();
-    final TextEditingController productBrandController =
-    TextEditingController();
-    final TextEditingController productPriceController =
-    TextEditingController();
-    final TextEditingController productUrlController =
-    TextEditingController();
-    final TextEditingController productCategoryController =
-    TextEditingController();
-    final TextEditingController productMostSaleController =
-    TextEditingController();
+  _AddProductCardState createState() => _AddProductCardState();
+}
 
+class _AddProductCardState extends State<AddProductCard> {
+  final TextEditingController productNameController = TextEditingController();
+  final TextEditingController productDescriptionController = TextEditingController();
+  final TextEditingController productBrandController = TextEditingController();
+  final TextEditingController productPriceController = TextEditingController();
+  final TextEditingController productUrlController = TextEditingController();
+  final TextEditingController productCategoryController = TextEditingController();
+  bool isMostSale = false;
+  String selectedCategory = ''; // Inicializar selectedCategory con una cadena vacía
+  @override
+  Widget build(BuildContext context) {
     void addProduct() async {
-      String categoryId = ''; // Obtén el ID de la categoría
       String description = productDescriptionController.text;
       String brand = productBrandController.text;
-      bool mostSale = productMostSaleController.text.toLowerCase() == 'true';
       String name = productNameController.text;
       double price = double.parse(productPriceController.text);
       String url = productUrlController.text;
       String category = productCategoryController.text.toLowerCase();
 
       // Obtener el ID autoincremental
-      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('productos').get();
-      final int nextID = querySnapshot.size + 1;
+      // final QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('productos').get();
 
       await FirebaseFirestore.instance.collection('productos').add({
-        'id': nextID.toString(),
         'descripcion': description,
         'marca': brand,
-        'masVendido': mostSale,
+        'masVendido': isMostSale,
         'nombre': name,
         'precio': price,
         'categoria': category,
@@ -154,7 +149,9 @@ class AddProductCard extends StatelessWidget {
       productPriceController.clear();
       productUrlController.clear();
       productCategoryController.clear();
-      productMostSaleController.clear();
+      setState(() {
+        isMostSale = false; // Restablecer el estado del botón de alternancia después de agregar el producto
+      });
     }
 
     return Card(
@@ -185,20 +182,45 @@ class AddProductCard extends StatelessWidget {
             TextFormField(
               controller: productPriceController,
               decoration: const InputDecoration(labelText: 'Precio'),
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.numberWithOptions(decimal: true), // Permite el teclado numérico y el punto decimal
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')), // Solo permite dígitos y un punto decimal
+                TextInputFormatter.withFunction((oldValue, newValue) {
+                  try {
+                    final text = newValue.text;
+                    if (text.isNotEmpty) double.parse(text); // Intenta convertir el valor a un número flotante
+                    return newValue;
+                  } catch (e) {
+                    // Si ocurre un error al intentar convertir, significa que se ingresó un valor no válido
+                    return oldValue;
+                  }
+                }),
+              ],
             ),
             TextFormField(
               controller: productUrlController,
               decoration: const InputDecoration(labelText: 'URL'),
             ),
-            TextFormField(
-              controller: productCategoryController,
-              decoration: const InputDecoration(labelText: 'Categoria'),
+            CategoryDropdown(
+              onCategorySelected: (category) {
+                setState(() {
+                  selectedCategory = category;
+                  productCategoryController.text = category; // Actualizar el controlador de categoría de productos
+                });
+              },
             ),
-            TextFormField(
-              controller: productMostSaleController,
-              decoration: const InputDecoration(
-                  labelText: '¿Más vendido? (true/false)'),
+            Row(
+              children: [
+                const Text('¿Más vendido?'),
+                Switch(
+                  value: isMostSale,
+                  onChanged: (value) {
+                    setState(() {
+                      isMostSale = value;
+                    });
+                  },
+                ),
+              ],
             ),
             const SizedBox(height: 20),
             ElevatedButton(

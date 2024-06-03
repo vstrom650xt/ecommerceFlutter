@@ -98,8 +98,8 @@ class _LoginFormState extends State<LoginForm> {
               text: 'Iniciar Sesión',
               onTap: () async {
                 try {
-                  String email = _emailController.text;
-                  String password = _passwordController.text;
+                  String email = _emailController.text.trim();
+                  String password = _passwordController.text.trim();
 
                   bool signInResult =
                   await LoginController.signInWithEmailAndPassword(
@@ -111,6 +111,11 @@ class _LoginFormState extends State<LoginForm> {
                         content: Text(
                             'Inicio de sesión fallido. Por favor, verifica tus credenciales.'),
                       ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomeScreen()),
                     );
                   }
                 } catch (error) {
