@@ -1,4 +1,5 @@
 import 'package:ecommerce/screens/adminpanel/widgets/CategoryDropdown.dart';
+import 'package:ecommerce/screens/adminpanel/widgets/ProductDropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
@@ -20,6 +21,8 @@ class DashboardScreen extends StatelessWidget {
             AddCategoryCard(),
             SizedBox(height: 16),
             AddProductCard(),
+            DeleteCategoryCard(),
+            DeleteProductCard()
           ],
         ),
       ),
@@ -226,6 +229,124 @@ class _AddProductCardState extends State<AddProductCard> {
             ElevatedButton(
               onPressed: addProduct,
               child: const Text('Agregar Producto'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+class DeleteCategoryCard extends StatefulWidget {
+  const DeleteCategoryCard({Key? key});
+
+  @override
+  _DeleteCategoryCardState createState() => _DeleteCategoryCardState();
+}
+
+class _DeleteCategoryCardState extends State<DeleteCategoryCard> {
+  String selectedCategory = ''; // Inicializar selectedCategory con una cadena vacía
+
+  @override
+  Widget build(BuildContext context) {
+    final TextEditingController categoryNameController = TextEditingController();
+    final TextEditingController categoryUrlController = TextEditingController();
+
+    void deleteCategory() async {
+      if (selectedCategory.isNotEmpty) {
+        await FirebaseFirestore.instance.collection('categories').doc(selectedCategory).delete();
+        // Aquí puedes agregar cualquier lógica adicional después de borrar la categoría
+        setState(() {
+          selectedCategory = ''; // Restablecer la categoría seleccionada después de borrarla
+        });
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
+
+      }
+    }
+
+    return Card(
+      elevation: 4,
+      margin: const EdgeInsets.all(8),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Borrar Categoría',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            CategoryDropdown(
+              onCategorySelected: (category) {
+                setState(() {
+                  selectedCategory = category;
+                });
+              },
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: deleteCategory,
+
+              child: const Text('Borrar Categoría'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DeleteProductCard extends StatefulWidget {
+  const DeleteProductCard({Key? key});
+
+  @override
+  _DeleteProductCardState createState() => _DeleteProductCardState();
+}
+
+class _DeleteProductCardState extends State<DeleteProductCard> {
+  String selectedProduct = ''; // Inicializar selectedProduct con una cadena vacía
+
+  @override
+  Widget build(BuildContext context) {
+    final TextEditingController productNameController = TextEditingController();
+    final TextEditingController productUrlController = TextEditingController();
+
+    void deleteProduct() async {
+      if (selectedProduct.isNotEmpty) {
+        await FirebaseFirestore.instance.collection('productos').doc(selectedProduct).delete();
+        // Aquí puedes agregar cualquier lógica adicional después de borrar el producto
+        setState(() {
+          selectedProduct = ''; // Restablecer el producto seleccionado después de borrarlo
+        });
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
+
+      }
+    }
+
+    return Card(
+      elevation: 4,
+      margin: const EdgeInsets.all(8),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Borrar Producto',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            ProductDropdown(
+              onCategorySelected: (product) {
+                setState(() {
+                  selectedProduct = product;
+                });
+              },
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: deleteProduct,
+              child: const Text('Borrar Producto'),
             ),
           ],
         ),
